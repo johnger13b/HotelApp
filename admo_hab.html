@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/styles.css" rel="stylesheet" />
+    <link
+      href="css/dataTables.bootstrap4.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <title>Administracion de habitaciones </title>
+</head>
+<body>
+    </form>
+    <main>
+      <div class="container-fluid">
+        <h1 class="mt-4">Administracion de habitaciones</h1>
+
+        <ol class="breadcrumb mb-4">
+          <li class="breadcrumb-item"><a href="">Inicio</a></li>
+          <li class="breadcrumb-item active">Habitaciones</li>
+        </ol>
+
+
+          <div class="card-body">
+            <!--FORMULARIO-->
+            <form action="ControlHabitacion" method="Post">
+              <div class="form-row">
+                <div class="col-md-6 mb-2">
+                  <label>Habitacion:</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fa fa-id-card"></i
+                      ></span>
+                    </div>
+                    <select name="habitacion" id="">
+                      <option value="">Seleccione una habitacion</option>
+                      <option value="">Habitacion 1</option>
+                      <option value="">Habitacion 2</option>
+                      <option value="">Habitacion 3</option>
+                      <option value="">Habitacion 4</option>
+                      <option value="">Habitacion 5</option>
+                      <option value="">Habitacion 6</option>
+                      <option value="">Habitacion 7</option>
+                      <option value="">Habitacion 8</option>
+                      <option value="">Habitacion 9</option>
+                      <option value="">Habitacion 10</option>
+                      <option value="">Habitacion 11</option>
+                      <option value="">Habitacion 12</option>
+                      <option value="">Habitacion 13</option>
+                      <option value="">Habitacion 14</option>
+                      <option value="">Habitacion 15</option>
+                      <option value="">Habitacion 16</option>
+                      <option value="">Habitacion 17</option>
+                      <option value="">Habitacion 18</option>
+                      <option value="">Habitacion 19</option>
+                      <option value="">Habitacion 20</option>
+                      <option value="">Habitacion 21</option>
+                      <option value="">Habitacion 22</option>
+                      <option value="">Habitacion 23</option>
+                      <option value="">Habitacion 24</option>
+                      <option value="">Habitacion 25</option>
+                      <option value="">Habitacion 26</option>
+                      <option value="">Habitacion 27</option>
+                      <option value="">Habitacion 28</option>
+                      <option value="">Habitacion 29</option>
+                      <option value="">Habitacion 30</option>
+                      <option value="">Habitacion 31</option>
+                      <option value="">Habitacion 32</option>
+                      
+                      </select>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label>Precio por dia:</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fas fa-donate"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="text"
+                      placeholder=""
+                      name="pre"
+                      value=''
+                    />
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="form-row">
+                <div class="col-md-6 mb-2">
+                  <label>Estado:</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fa fa-align-left"></i
+                      ></span>
+                    </div>
+                    <select name="estado" id="">  
+                      <option value="">Seleccione un estado</option>
+                      <option value="">Disponible</option>
+                      <option value="">Ocupada</option>
+                      <option value="">Reservada</option>
+                      <option value="">Mantenimiento</option>
+                      </select> 
+                  </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label>Calificacion promedio:</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+ 
+                    </div>
+                    <label>4.0</label>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="form-row">
+                <div class="col-md-3 md-3">
+                  <div class="input-group">
+                    <input
+                      type="submit"
+                      class="btn btn-primary btn-block"
+                      name="acc"
+                      value="Nueva Habitacion"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-3 mb-3">
+                  <div class="input-group">
+                    <input
+                      type="submit"
+                      class="btn btn-primary btn-block"
+                      name="acc"
+                      value="Eliminar Habitacion"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-3 mb-2">
+                  <div class="input-group">
+                    <input
+                      type="submit"
+                      class="btn btn-primary btn-block"
+                      name="acc"
+                      value="Buscar"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <input
+                      type="submit"
+                      class="btn btn-primary btn-block"
+                      name="acc"
+                      value="Actualizar"
+                    />
+                  </div>
+                </div>
+              </div>
+              
+            </form>
+            <!--FIN FORMULARIOS-->
+          </div>
+        </div>
+      </div>
+    </main>
+
+</body>
+</html>
