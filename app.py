@@ -1,6 +1,6 @@
 from flask import request, Flask,flash, render_template, jsonify, url_for
 import flask
-import database as bd
+import crudHabitacion as bd
 from settings.config import configuracion
 import sqlite3
 from sqlite3 import Error
@@ -41,15 +41,7 @@ def signup():
 def vistaadminusuarios():
     return render_template('Vista_admin_usuarios.html', titulo="Ejemplo Hotel Gevora 2")
 
-
-
-def sql_connection():
-    try:
-        con=sqlite3.connect('src/sql/luna.db')
-        return con
-    except Error:
-        print(Error)
-
+app.run(debug=True)
 
 
 
