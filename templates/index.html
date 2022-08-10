@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block principal %}
+
+<div class="d-flex flex-column w-100 justify-content-center">
+    <h1 class="mb-xxl-5 text-center">Reserva tus habitaciones</h1>
+    <div id="search-container" class="d-flex justify-content-center">
+        <label for="Desde">Desde:
+            <input name="Desde" type="date" class="form-control-sm">
+        </label>
+        <label for="Hasta">Hasta:
+            <input name="Hasta" type="date" class="form-control-sm">
+        </label>
+    </div>
+    <div class="container d-flex flex-column justify-content-center">
+        <button type="button" class="btn btn-primary btn-lg btn-block">Buscar</button>
+        <button type="button" class="btn btn-secondary btn-lg btn-block">Limpiar</button>
+    </div>
+</div>
+<div class="b-example-vr"></div>
+<div class="card w-75">
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+                aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="container">
+                    <h1 class="carousel-caption">Suite Gevora</h1>
+                    <img class="card-img-top" src="static/images/248139729.jpg" alt="Card image cap">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="container">
+                    <img class="card-img-top" src="static/images/65685321.jpg">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="container">
+                    <img class="card-img-top" src="static/images/65685326.jpg" alt="Card image cap">
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next m-0" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Las habitaciones individuales, con 18 m2, tienen cama individual, baño en mármol con bañera
+            y vistas a la villa de Estoril. Además, le reciben con una bebida de bienvenida</p>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="bi bi-wifi"> </i>Wi-Fi</li>
+            <li class="list-group-item"><i class="bi bi-p-square"> </i>Parqueadero gratis</li>
+            <li class="list-group-item"><i class="bi bi-bell"> </i>Recepcion 24h</li>
+            <li class="list-group-item"><i class="bi bi-credit-card"></i> </i>Pago en el alojamiento</li>
+            <li class="list-group-item"><i class="bi bi-snow3"></i> </i>Aire acondicionado</li>
+            <li class="list-group-item"><i class="bi bi-water"></i> </i>Piscina al aire libre</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
