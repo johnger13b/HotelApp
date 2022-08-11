@@ -3,9 +3,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- <link rel="stylesheet" href="../assets/dist/css/bootstrap.min.css"> -->
+  <link href="{{ url_for('static', filename='css/miEstilo.css') }}" rel="stylesheet" />
   <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" /> 
-  <!-- <link href="../assets/dist/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" /> -->
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
   <title>Administracion de habitaciones </title>
 </head>
 
@@ -24,7 +25,7 @@
 
         <div class="card-body">
         <!--FORMULARIO-->
-        <form action="ControlHabitacion" method="Post">
+        <form action="ControlHabitacion" method="get">
             <div class="form-row">
             <div class="col-md-6 mb-2">
               <label>Habitacion:</label>
@@ -32,14 +33,10 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-id-card"></i></span>
                 </div>
-                <select name="habitacion" id="">
+                <select>
                   {% for hab in l_hab %}
-                  <tr>
-                      <td>{{ hab[0] }}</td>
-                      <td>{{ hab[1] }}</td>
-                  </tr>
-              {% endfor %}
-
+                      <option value= {{ hab[1] }} > {{ hab[0] }} </option>
+                  {% endfor %}
                 </select>
               </div>
             </div>
@@ -49,7 +46,8 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-donate"></i></span>
                 </div>
-                <input type="text" placeholder="" name="pre" value='' />
+                <input type="text" placeholder="" name="pre" value='150000' />
+                
               </div>
             </div>
 
@@ -64,10 +62,10 @@
                 </div>
                 <select name="estado" id="">
                   <option value="">Seleccione un estado</option>
-                  <option value="">Disponible</option>
-                  <option value="">Ocupada</option>
-                  <option value="">Reservada</option>
-                  <option value="">Mantenimiento</option>
+                  <option value="Disponible">Disponible</option>
+                  <option value="Ocupada">Ocupada</option>
+                  <option value="Reservada">Reservada</option>
+                  <option value="Mantenimiento">Mantenimiento</option>
                 </select>
               </div>
             </div>
@@ -87,12 +85,14 @@
             <div class="col-md-3 md-3">
               <div class="input-group">
                 <input type="submit" class="btn btn-primary btn-block" name="acc" value="Nueva Habitacion" />
+
               </div>
             </div>
 
             <div class="col-md-3 mb-3">
               <div class="input-group">
                 <input type="submit" class="btn btn-primary btn-block" name="acc" value="Eliminar Habitacion" />
+                
               </div>
             </div>
 
@@ -112,6 +112,21 @@
         </form>
         <!--FIN FORMULARIOS-->
       </div>
+      <table id="tabla">
+        <tbody>
+            <tr>
+                <th> Habitacion </th>
+                <th> Estado </th>
+            </tr>
+            {% for hab in l_hab %}
+            <tr> 
+                <td>{{ hab[0] }}</td>
+                <td>{{ hab[1] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+
     </div>
     </div>
 {% endblock %}
