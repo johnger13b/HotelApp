@@ -10,7 +10,9 @@
             </div>
             <div class="d-flex p-3 justify-content-center"><h4>Informacion Personal</h2></div>
         </div>
-        <form action="#" ></form>
+        {% from "_macro.html" import render_field %}
+        {% from "_macro.html" import render_buttonfield %}
+        <form name="updateprofileform" id="updateprofileform" action="/myProfile" method="post" >
         <div class="d-flex justify-content-center gap-3" >            
             
             <div class="d-flex col-sd-12 col-md-6 col-lg-6 justify-content-center  border rounded  " style="height: 350px;">
@@ -23,35 +25,49 @@
                             <label for="Nombre" class="fw-bold px-1">Agregar una Foto</label>
                         </a>
                     </div>                                           
-                    <div class="p-1" ><label for="Nombres" >Nombres:</label></div>
-                    <div class="p-1"><input name="Nombres" type="text" class="form-control form-control-sm"></div>
-                    <div class="p-1" ><label for="Apellidos" >Apellidos:</label></div>
-                    <div class="p-1"><input name="Apellidos" type="text" class="form-control form-control-sm"></div>
-                    <div class="p-1"><label for="Fecha" >Sexo:</label></div>
+                    <!-- <div class="p-1" ><label for="Nombres" >Nombres:</label></div>                     -->
                     <div class="p-1">
-                        <select class="form-control form-control-sm">
+                        <!-- <input name="Nombres" type="text" class="form-control form-control-sm"> -->
+                        {{ render_field(form.name, type='text', class='form-control form-control-sm') }}
+                    </div>
+                    <!-- <div class="p-1" ><label for="Apellidos" >Apellidos:</label></div> -->
+                    <div class="p-1">
+                        <!-- <input name="Apellidos" type="text" class="form-control form-control-sm"> -->
+                        {{ render_field(form.lastname, type='text', class='form-control form-control-sm') }}
+                    </div>
+                    <!-- <div class="p-1"><label for="Fecha" >Sexo:</label></div> -->
+                    <div class="p-1">
+                        {{ render_field(form.sex, class='form-control form-control-sm') }}
+                        <!-- <select class="form-control form-control-sm">
                             <option value="1">Mujer</option>
                             <option value="2">Hombre</option>
                             <option value="3">Otro</option>
-                        </select>
+                        </select> -->
                     </div>                                    
                 </div>
             </div>
             <div class=" d-flex col-sd-12 col-md-6 col-lg-6 justify-content-center  border rounded ">
                 <div class=" py-4 col-sd-12 col-md-10 col-lg-10 " >
-                    <div class="p-1"><label for="Direccion" >Dirección:</label></div>
-                    <div class="p-1"><input name="Direccion" type="text" class="form-control form-control-sm"></div>
-                    <div class="p-1"><label for="Telefono" >Telefono:</label></div>
-                    <div class="p-1"><input name="Telefono" type="text" class="form-control form-control-sm"></div>
-                    <div class="p-1"><label for="Correo" >Correo:</label></div>
-                    <div class="p-1"><input name="Correo" type="text" class="form-control form-control-sm"></div>                                                
-                    <div class="p-1"><label for="Fecha" >Fecha Nacimiento:</label></div>
-                    <div class="p-1"><input name="Fecha" type="date" class="form-control form-control-sm"></div>
+                    <!-- <div class="p-1"><label for="Direccion" >Dirección:</label></div> -->
+                    <!-- <div class="p-1"><input name="Direccion" type="text" class="form-control form-control-sm"></div> -->
+                    <!-- <div class="p-1"><label for="Telefono" >Telefono:</label></div> -->
+                    <!-- <div class="p-1"><input name="Telefono" type="text" class="form-control form-control-sm"></div> -->
+                    <!-- <div class="p-1"><label for="Correo" >Correo:</label></div> -->
+                    <!-- <div class="p-1"><input name="Correo" type="text" class="form-control form-control-sm"></div>                                                 -->
+                    <!-- <div class="p-1"><label for="Fecha" >Fecha Nacimiento:</label></div> -->
+                    <!-- <div class="p-1"><input name="Fecha" type="date" class="form-control form-control-sm"></div> -->
+                    
+                    <!-- <div class="p-1">{{ render_field(form.address, type='text', class='form-control form-control-sm') }}</div>                     -->
+                    <div class="py-4"></div>
+                    <div class="p-1">{{ render_field(form.tel, type='text', class='form-control form-control-sm') }}</div>                    
+                    <div class="p-1">{{ render_field(form.username, type='email', class='form-control form-control-sm') }}</div>
+                    <div class="p-1">{{ render_field(form.birddate, type='date', class='form-control form-control-sm') }}</div>
                 </div>
             </div>
         </div>
         <div class="p-3 d-flex flex-column  col-4 mx-auto">
-            <button type="button" class="btn gradient-navbar btn-md  btn-block text-light fw-bold" >Actualizar</button>                    
+            <!-- <button type="button" class="btn gradient-navbar btn-md  btn-block text-light fw-bold" >Actualizar</button>  -->
+            {{ render_buttonfield(form.send, class='btn gradient-navbar btn-md  btn-block text-light fw-bold', placeholder='Actualizar') }}                   
         </div>
         </form>
     </div>
