@@ -23,7 +23,9 @@ def mprofile():
 
 @app.route('/admo_hab')
 def admohab():
-    return render_template('admo_hab.html', titulo="Ejemplo Hotel Gevora 2")
+    lista = bd.sql_select_habitaciones()
+    
+    return render_template('admo_hab.html',l_hab=lista, titulo="Ejemplo Hotel Gevora 2")
 
 @app.route('/historialReserva')
 def historeserva():

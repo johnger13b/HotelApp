@@ -33,39 +33,12 @@
                     <span class="input-group-text"><i class="fa fa-id-card"></i></span>
                 </div>
                 <select name="habitacion" id="">
-                  <option value="">Seleccione una habitacion</option>
-                  <option value="">Habitacion 1</option>
-                  <option value="">Habitacion 2</option>
-                  <option value="">Habitacion 3</option>
-                  <option value="">Habitacion 4</option>
-                  <option value="">Habitacion 5</option>
-                  <option value="">Habitacion 6</option>
-                  <option value="">Habitacion 7</option>
-                  <option value="">Habitacion 8</option>
-                  <option value="">Habitacion 9</option>
-                  <option value="">Habitacion 10</option>
-                  <option value="">Habitacion 11</option>
-                  <option value="">Habitacion 12</option>
-                  <option value="">Habitacion 13</option>
-                  <option value="">Habitacion 14</option>
-                  <option value="">Habitacion 15</option>
-                  <option value="">Habitacion 16</option>
-                  <option value="">Habitacion 17</option>
-                  <option value="">Habitacion 18</option>
-                  <option value="">Habitacion 19</option>
-                  <option value="">Habitacion 20</option>
-                  <option value="">Habitacion 21</option>
-                  <option value="">Habitacion 22</option>
-                  <option value="">Habitacion 23</option>
-                  <option value="">Habitacion 24</option>
-                  <option value="">Habitacion 25</option>
-                  <option value="">Habitacion 26</option>
-                  <option value="">Habitacion 27</option>
-                  <option value="">Habitacion 28</option>
-                  <option value="">Habitacion 29</option>
-                  <option value="">Habitacion 30</option>
-                  <option value="">Habitacion 31</option>
-                  <option value="">Habitacion 32</option>
+                  {% for hab in l_hab %}
+                  <tr>
+                      <td>{{ hab[0] }}</td>
+                      <td>{{ hab[1] }}</td>
+                  </tr>
+              {% endfor %}
 
                 </select>
               </div>
