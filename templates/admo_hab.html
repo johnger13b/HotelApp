@@ -33,11 +33,13 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-id-card"></i></span>
                 </div>
-                <select>
+                <select name="idHab">
                   {% for hab in l_hab %}
-                      <option value= {{ hab[1] }} > {{ hab[0] }} </option>
+                      <option value= {{ hab[0] }}> {{ hab[0] }} </option>
                   {% endfor %}
+                  
                 </select>
+               
               </div>
             </div>
             <div class="col-md-6 mb-3">
@@ -60,8 +62,8 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fa fa-align-left"></i></span>
                 </div>
-                <select name="estado" id="">
-                  <option value="">Seleccione un estado</option>
+                <select name="estado">
+                  <option value="NS">Seleccione un estado</option>
                   <option value="Disponible">Disponible</option>
                   <option value="Ocupada">Ocupada</option>
                   <option value="Reservada">Reservada</option>

@@ -4,6 +4,7 @@ import crudHabitacion as bd
 from settings.config import configuracion
 import sqlite3
 from sqlite3 import Error
+from forms import Habitacion
 
 app = Flask(__name__)
 app.config.from_object(configuracion)
@@ -34,7 +35,7 @@ def historeserva():
 
 @app.route('/login')
 def login():
-    return render_template('login.html', titulo="Ejemplo Hotel Gevora 2")
+    return render_template('login.html', titulo="Hotel Gevora")
 
 @app.route('/SignUp')
 def signup():
@@ -43,6 +44,20 @@ def signup():
 @app.route('/Vista_admin_usuarios')
 def vistaadminusuarios():
     return render_template('Vista_admin_usuarios.html', titulo="Ejemplo Hotel Gevora 2")
+
+@app.route('/ControlHabitacion', methods=['GET','POST'])
+def controlHabitacion():
+    acc = request.args.get["acc"]
+    estado = request.args.get["estado"]
+    idHab = request.args.get["idHab"]
+    
+    if acc == 'Eliminar+Habitacion':
+        bd.sql_delete_habitacion(idHab)
+        return render_template('admo_hab.html', titulo="Ejemplo Hotel Gevora 2")
+    else:
+        # bd.sql_update_habitacion(idHab, estado)
+        return render_template('admo_hab.html', titulo="Ejemplo Hotel Gevora 2")
+ 
 
 app.run(debug=True)
 
