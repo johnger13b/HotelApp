@@ -5,3 +5,6 @@
 {% macro render_buttonfield(field) %}
     <dd>{{ field(**kwargs)|safe }}
 {% endmacro %}
+{% macro render_simple_field(field) %}
+    <dd>{{ field(**kwargs)|safe }}
+{% endmacro %}

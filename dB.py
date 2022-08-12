@@ -48,5 +48,14 @@ def sql_select_all_ReservaU(username):
     con.close()
     return reservas
 
+def mardeluna(Email, Nombres, Apellidos, Contraseña, FechadeNacimiento, Genero, Rol):
+    con = sql_connection()
+    cursor_Obj = con.cursor()
+    datura = "INSERT INTO Usuarios (Email, Nombres, Apellidos, Contraseña, FechadeNacimiento, Genero, Rol) VALUES(?, ?, ?, ?, ?, ?, ?);"
+    print(Email)
+    cursor_Obj.execute(datura,(Email, Nombres, Apellidos, Contraseña, FechadeNacimiento, Genero, Rol))
+    con.commit()
+    con.close()
+
 
 

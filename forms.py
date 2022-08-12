@@ -24,3 +24,13 @@ class profileform(Form):
     username = EmailField('Correo:', validators=[DataRequired()])
     contra = PasswordField('Contraseña')
     send = SubmitField('Actualizar')
+
+class Usuarios(Form):
+    name = StringField('Nombres:', validators=[DataRequired()])
+    lastname = StringField('Apellidos:', validators=[DataRequired()])
+    sex = SelectField('Sexo:', choices=[('Mujer', 'Mujer'), ('Hombre', 'Hombre'), ('Otro', 'Otro')], validators=[DataRequired()])
+    contra = PasswordField('Contraseña', validators=[DataRequired()])
+    birddate = DateField('FechadeNacimiento:', validators=[DataRequired()])
+    email = EmailField('Correo Electronico:', validators=[DataRequired()])
+    rol = SelectField('Genero:', choices=[('Usuario', 'Usuario'), ('Administrador', 'Administrador'), ('Superadministrador', 'Superadministrador')], validators=[DataRequired()])
+    signup = SubmitField('Registrar')

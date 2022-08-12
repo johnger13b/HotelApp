@@ -4,9 +4,11 @@ import crudHabitacion as bd
 import dB as db
 from settings.config import configuracion
 import sqlite3
-import forms
 from sqlite3 import Error
-from forms import Habitacion
+import forms
+from forms import Habitacion, Usuarios
+from forms import profileform
+import CrudUsuarios as diana
 
 app = Flask(__name__)
 app.config.from_object(configuracion)
@@ -90,7 +92,8 @@ def loginfor():
 
 @app.route('/SignUp')
 def signup():
-    return render_template('SignUp.html', titulo="Ejemplo Hotel Gevora 2")
+    form=forms.Usuarios(request.form)
+    return render_template('SignUp.html', form=form, titulo="Ejemplo Hotel Gevora 2")
 
 @app.route('/Vista_admin_usuarios')
 def vistaadminusuarios():
@@ -123,6 +126,22 @@ def controlHabitacion():
         return render_template('admo_hab.html', titulo="Ejemplo Hotel Gevora 2")
     else :
         return render_template('admo_hab.html', titulo="Ejemplo Hotel Gevora 2")
- 
+
+@app.route('/Moon', methods=['GET', 'POST'])
+def MoonKnight():
+    lunera = forms.Usuarios(request.form)
+    if request.method == 'GET':
+        form = Usuarios()
+    if request.method == 'POST':
+        Email= request.form["email"]
+        Nombres= request.form["name"]
+        Apellidos= request.form["lastname"]
+        Contraseña= request.form["contra"]
+        FechadeNacimiento= request.form["birddate"]
+        Genero= request.form["sex"]
+        Rol= request.form["rol"]
+        diana.mardeluna(Email, Nombres, Apellidos, Contraseña, FechadeNacimiento, Genero, Rol)
+        flash(f"Usuario {Email} registrado correctamente")
+        return render_template('login.html', titulo="Registro de nuevo producto", form = lunera)
 
 app.run(debug=True)
