@@ -8,16 +8,6 @@ def sql_connection():
     except Error:
         print(Error)
 
-def sql_select_all_reservas():
-    strsql="SELECT * FROM Reservas Where IdUsuario = ?"
-    print(strsql)
-    con=sql_connection()
-    cursor_Obj=con.cursor()
-    # cursor_Obj.execute(strsql,(idUsuario))
-    reservas=cursor_Obj.fetchall()
-    con.close()
-    return reservas
-
 def sql_edit_usuario(name, lastname, username, tel, sex, birddate):
     strsql='UPDATE Usuarios SET  Nombres = ?, Apellidos = ?,  Genero = ?, FechaNacimiento = ?, Telefono = ? WHERE Email = ?;'
     # strsql="UPDATE Usuarios SET Nombres ='"+ name +"', Apellidos ='"+ lastname+"' WHERE Email ='"+username+"';"
@@ -48,6 +38,23 @@ def sql_select_all_ReservaU(username):
     con.close()
     return reservas
 
+def sql_select_Reserva_byId(id):
+    strsq="SELECT * FROM Reservas WHERE IdUsuario ='"+ id +"';"
+    con=sql_connection()
+    cursor_Obj=con.cursor()
+    cursor_Obj.execute(strsq)
+    reservas = cursor_Obj.fetchall()
+    con.close()
+    return reservas
+
+def sql_edit_rate_reserva(id, rate, comentario):
+    strsql='UPDATE Reservas SET Calificacion = ?, Comentario = ? WHERE Id = ?;'
+    con=sql_connection()
+    cursor_Obj=con.cursor()
+    cursor_Obj.execute(strsql, (int(rate), comentario, int(id)))
+    con.commit()
+    con.close()
+
 def mardeluna(Email, Nombres, Apellidos, Contraseña, FechadeNacimiento, Genero, Rol):
     con = sql_connection()
     cursor_Obj = con.cursor()
@@ -56,6 +63,3 @@ def mardeluna(Email, Nombres, Apellidos, Contraseña, FechadeNacimiento, Genero,
     cursor_Obj.execute(datura,(Email, Nombres, Apellidos, Contraseña, FechadeNacimiento, Genero, Rol))
     con.commit()
     con.close()
-
-
-

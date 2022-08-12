@@ -8,7 +8,7 @@ from sqlite3 import Error
 import forms
 from forms import Habitacion, Usuarios
 from forms import profileform
-import CrudUsuarios as diana
+import dB as diana
 
 app = Flask(__name__)
 app.config.from_object(configuracion)
@@ -72,7 +72,7 @@ def mprofile():
              flash('No hay Usuarios Registrados!')
 
         return render_template('myprofile.html',form=myprofile_Form, titulo="Mi Perfil")
-        
+
 @app.route('/admo_hab')
 def admohab():
     lista = bd.sql_select_habitaciones()
@@ -82,8 +82,34 @@ def admohab():
 @app.route('/historialReserva')
 def historeserva():
     reserva = db.sql_select_all_ReservaU(g.user)
+    rate_Form = forms.rateform(request.form)
+    # if request.method == 'POST':
+    #     idReserva = request.form["IdReserva"]
+    #     rate = request.form["rate"]
+    #     comentario =  request.form["comentario"]
+
+    #     if idReserva:
+    #         db.sql_edit_rate_reserva(idReserva, rate, comentario)
+    # if request.method == 'GET':
     flash("Lista de reservas")
-    return render_template('historialReserva.html', lreservas = reserva, titulo="Historial de Reservas")
+    return render_template('historialReserva.html', form=rate_Form, lreservas = reserva, titulo="Historial de Reservas")
+
+@app.route('/updateRateReserva' ,methods = ['GET','POST'])
+def updarerate():
+    reserva = db.sql_select_all_ReservaU(g.user)
+    rate_Form = forms.rateform(request.form)
+    if request.method == 'POST':
+        idReserva = request.form["IdReserva"]
+        rate = request.form["rate"]
+        comentario =  request.form["comentario"]
+        if idReserva:
+            db.sql_edit_rate_reserva(idReserva, rate, comentario)
+
+    if request.method == 'GET':
+        flash("Lista de reservas")
+
+    # return render_template('historialReserva.html', form=rate_Form, lreservas = reserva, titulo="Historial de Reservas")
+    return historeserva()
 
 @app.route('/login')
 def loginfor():
