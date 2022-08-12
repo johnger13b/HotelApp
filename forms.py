@@ -25,8 +25,12 @@ class profileform(Form):
     contra = PasswordField('Contraseña')
     send = SubmitField('Actualizar')
 
-class rateform(Form):
-    IdReserva = StringField('IdReserva', validators=[DataRequired()])
-    rate = StringField('Rate', validators=[DataRequired()])
-    comentario = StringField('Comentario:', validators=[DataRequired()])
-    send = SubmitField('Guardar')
+class Usuarios(Form):
+    name = StringField('Nombres:', validators=[DataRequired()])
+    lastname = StringField('Apellidos:', validators=[DataRequired()])
+    sex = SelectField('Sexo:', choices=[('Mujer', 'Mujer'), ('Hombre', 'Hombre'), ('Otro', 'Otro')], validators=[DataRequired()])
+    contra = PasswordField('Contraseña', validators=[DataRequired()])
+    birddate = DateField('FechadeNacimiento:', validators=[DataRequired()])
+    email = EmailField('Correo Electronico:', validators=[DataRequired()])
+    rol = SelectField('Genero:', choices=[('Usuario', 'Usuario'), ('Administrador', 'Administrador'), ('Superadministrador', 'Superadministrador')], validators=[DataRequired()])
+    signup = SubmitField('Registrar')
