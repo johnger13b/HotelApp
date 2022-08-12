@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block principal %}
 <!-- ============================ Divisor izquierdo reserva  =================================== -->
-
+    {% from "_macro.html" import render_field %}
+    {% from "_macro.html" import render_buttonfield %}
     <div class="container py-1  px-5  " >
         <div class="row text-center">
             <div class="p-2 col text-center mb-4 gradient-navbar" >
@@ -49,23 +50,45 @@
                 <!-- ============================================================================================== -->
             </div>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center  ">
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 py-3 px-4 bg-white w-75 ">
                 <h2 class="mb-xxl-5 text-center">Historial de Reservas</h2>
                 <table class="table  table-striped " style="background-color: #3590bb;">
                     <thead>
                         <tr>
-                            <th class="centrado text-light">#</th>
-                            <th class="centrado text-light">Fecha Reserva</th>
                             <th class="centrado text-light">Fecha Checkin</th>
                             <th class="centrado text-light">Fecha CheckOut</th>
-                            <th class="centrado text-light">Habitaciones</th>
-                            <th class="centrado text-light">Personas Registradas</th>
+                            <th class="centrado text-light justify-content-center text-center">Habitacion</th>
+                            <th class="centrado text-light">Estado</th>
+                            <th class="centrado text-light">Costo</th>
                             <th class="centrado text-light">calificación</th>
                             <th class="centrado text-light">calificar</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
+                        {% for reserv in lreservas %}
+                            <tr style="background-color: #aaebff;">
+                                <td class="centrado">{{reserv[3]}}</td>
+                                <td class="centrado">{{reserv[4]}}</td>
+                                <td class="centrado  text-center">{{reserv[2]}}</td>
+                                <td class="centrado">{{reserv[6]}}</td>
+                                <td class="centrado">{{reserv[5]}}</td>
+                                <th class="centrado">
+                                {% for cont in range(0, 5) %}
+                                    {% set number = reserv[7] | int %}
+                                    {% if cont < number %} 
+                                        <img src="{{ url_for('static', filename='images/icons8-star-48.png') }}" alt="" width="15%">
+                                    {% else %}
+                                        <img src="{{ url_for('static', filename='images/icons8-star-dark.png') }}" alt="" width="15%">
+                                    {% endif %}
+                                {% endfor%}
+                                </th>
+                                <th class="centrado justify-content-center ">
+                                    <a href="#"><img src="{{ url_for('static', filename='images/Calificar.png') }}" alt="" width="50%"></a>
+                                </th>
+                            </tr>
+                        {% endfor%}
+<!--                         
                         <tr style="background-color: #aaebff;">
                             <td class="centrado">1</td>
                             <th class="centrado">02/05/2019</th>
@@ -137,12 +160,12 @@
                             <th class="centrado justify-content-center ">
                                 <a href="#"><img src="../src/img/Calificar.png" alt="" width="50%"></a>
                             </th>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="b-example-vr"></div>
+        <!-- <div class="b-example-vr"></div> -->
     </div>
 {% endblock %}
  

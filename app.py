@@ -1,27 +1,76 @@
-from flask import request, Flask,flash, render_template, jsonify, url_for
-import flask
+from flask import request, Flask,flash, render_template, jsonify, url_for, session, g
+from datetime import datetime
 import crudHabitacion as bd
+import dB as db
 from settings.config import configuracion
 import sqlite3
+import forms
 from sqlite3 import Error
 from forms import Habitacion
 
 app = Flask(__name__)
 app.config.from_object(configuracion)
 
-
 @app.route('/')
 def index():
+    session['username'] = 'cway@oulook.com'
+    session['rol']= 'Administrador'
     return render_template('index.html', titulo="Ejemplo Hotel Gevora")
+
+
+@app.route('/cerrar')
+def cerrar():
+    flash("Sesion Cerrada")
+    session.clear()
+    g.user = None
+    return render_template('index.html')
+
+@app.before_request
+def before_request():
+    if 'username' in session:
+        g.user = 'cway@outlook.com'
+    else:
+        g.user = None
+
+    if 'rol' in session:
+        g.rol = 'Administrador'
+    else:
+        g.rol = None
 
 @app.route('/homeProfile')
 def hprofile():
     return render_template('homeProfile.html', titulo="Ejemplo Hotel Gevora 2")
 
-@app.route('/myProfile')
+@app.route('/myProfile', methods=['GET', 'POST'])
 def mprofile():
-    return render_template('myprofile.html', titulo="Ejemplo Hotel Gevora 2")
+    
+    usuario = db.sql_select_all_usuario(g.user)
+    myprofile_Form = forms.profileform(request.form)
+    if request.method == 'POST':
+        name = request.form["name"]
+        lastname = request.form["lastname"]
+        sex = request.form["sex"]
+        # address = request.form["address"]
+        tel = request.form["tel"]
+        birddate = request.form["birddate"]
+        db.sql_edit_usuario(name, lastname, g.user, tel, sex, birddate)
+        flash('Actualizado con exito!')       
+        return render_template('myprofile.html', titulo="Ejemplo Hotel Gevora 2", form = myprofile_Form)
+    elif request.method == 'GET':
+        if usuario:
+            myprofile_Form.name.data = usuario[1]
+            myprofile_Form.lastname.data = usuario[2]
+            myprofile_Form.sex.data = usuario[5]
+            # myprofile_Form.address.data = usuario[1]
+            myprofile_Form.username.data = usuario[0]
+            myprofile_Form.tel.data = usuario[6]
+            myprofile_Form.birddate.data = datetime.strptime(usuario[4],'%Y-%m-%d').date()
+           
+        else:
+             flash('No hay Usuarios Registrados!')
 
+        return render_template('myprofile.html',form=myprofile_Form, titulo="Mi Perfil")
+        
 @app.route('/admo_hab')
 def admohab():
     lista = bd.sql_select_habitaciones()
@@ -31,11 +80,14 @@ def admohab():
 
 @app.route('/historialReserva')
 def historeserva():
-    return render_template('historialReserva.html', titulo="Ejemplo Hotel Gevora 2")
+    reserva = db.sql_select_all_ReservaU(g.user)
+    flash("Lista de reservas")
+    return render_template('historialReserva.html', lreservas = reserva, titulo="Historial de Reservas")
 
 @app.route('/login')
-def login():
-    return render_template('login.html', titulo="Hotel Gevora")
+def loginfor():
+    login_Form = forms.loginForm()
+    return render_template('login.html', titulo="Ejemplo Hotel Gevora 2", form = login_Form)
 
 @app.route('/SignUp')
 def signup():
@@ -47,7 +99,11 @@ def vistaadminusuarios():
 
 @app.route('/ControlHabitacion', methods=['GET','POST'])
 def controlHabitacion():
+<<<<<<< HEAD
     acc = request.args.get("acc")
+=======
+    acc = request.args.get('acc')
+>>>>>>> 8a0756649026a5e6ff4ba036ad2af5b0d6db4314
     print(acc)
     estado = request.args.get("estado")
     idHab = request.args.get("idHab")
