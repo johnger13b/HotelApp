@@ -75,7 +75,6 @@ def mprofile():
 def admohab():
     lista = bd.sql_select_habitaciones()
     print(lista)
-    
     return render_template('admo_hab.html',l_hab=lista, titulo="Ejemplo Hotel Gevora 2")
 
 @app.route('/historialReserva')
@@ -115,12 +114,12 @@ def controlHabitacion():
         j=0
         for i in lista:
             j+=1
-            if j!=i[j]:
+            if j!=i[0]:
                 break
                 # break
-            print(i[j])
-        
-        # bd.sql_add_habitacion(idHab, estado)
+            print(i[0])
+        j =str(j)
+        bd.sql_add_habitacion(j, "Disponible")
         return render_template('admo_hab.html', titulo="Ejemplo Hotel Gevora 2")
     else :
         return render_template('admo_hab.html', titulo="Ejemplo Hotel Gevora 2")
