@@ -99,15 +99,10 @@ def vistaadminusuarios():
 
 @app.route('/ControlHabitacion', methods=['GET','POST'])
 def controlHabitacion():
-<<<<<<< HEAD
-    acc = request.args.get("acc")
-=======
     acc = request.args.get('acc')
->>>>>>> 8a0756649026a5e6ff4ba036ad2af5b0d6db4314
     print(acc)
     estado = request.args.get("estado")
     idHab = request.args.get("idHab")
-    
     
     if acc == 'Eliminar Habitacion':
         bd.sql_delete_habitacion(idHab)
@@ -124,7 +119,6 @@ def controlHabitacion():
                 break
                 # break
             print(i[j])
-        
         
         # bd.sql_add_habitacion(idHab, estado)
         return render_template('admo_hab.html', titulo="Ejemplo Hotel Gevora 2")
