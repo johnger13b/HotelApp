@@ -134,10 +134,10 @@ def controlHabitacion():
     
     if acc == 'Eliminar Habitacion':
         bd.sql_delete_habitacion(idHab)
-        return render_template('admo_hab.html', titulo="Ejemplo Hotel Gevora 2")
+       
     elif acc == 'Actualizar':
         bd.sql_update_habitacion(idHab, estado)
-        return render_template('admo_hab.html', titulo="Ejemplo Hotel Gevora 2")
+        
     elif acc == 'Nueva Habitacion':
         lista = bd.sql_select_habitaciones()
         j=0
@@ -149,9 +149,8 @@ def controlHabitacion():
             print(i[0])
         j =str(j)
         bd.sql_add_habitacion(j, "Disponible")
-        return render_template('admo_hab.html', titulo="Ejemplo Hotel Gevora 2")
-    else :
-        return render_template('admo_hab.html', titulo="Ejemplo Hotel Gevora 2")
+  
+    return admohab()
 
 @app.route('/Moon', methods=['GET', 'POST'])
 def MoonKnight():
