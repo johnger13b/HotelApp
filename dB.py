@@ -9,7 +9,7 @@ def sql_connection():
         print(Error)
 
 def sql_edit_usuario(name, lastname, username, tel, sex, birddate):
-    strsql='UPDATE Usuarios SET  Nombres = ?, Apellidos = ?,  Genero = ?, FechaNacimiento = ?, Telefono = ? WHERE Email = ?;'
+    strsql='UPDATE Usuarios SET  Nombres = ?, Apellidos = ?,  Genero = ?, FechadeNacimiento = ?, Telefono = ? WHERE Email = ?;'
     # strsql="UPDATE Usuarios SET Nombres ='"+ name +"', Apellidos ='"+ lastname+"' WHERE Email ='"+username+"';"
     # strsql="UPDATE Usuarios SET Nombres ='Carlos Alberto', Apellidos ='Mendoza Llerena' WHERE Email ='cway@outlook.com';"
     print(birddate)
