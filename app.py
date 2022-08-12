@@ -1,7 +1,7 @@
 from flask import request, Flask,flash, render_template, jsonify, url_for, session, g
-import flask
 from datetime import datetime
 import crudHabitacion as bd
+import dB as db
 from settings.config import configuracion
 import sqlite3
 import forms
@@ -57,13 +57,17 @@ def mprofile():
         flash('Actualizado con exito!')       
         return render_template('myprofile.html', titulo="Ejemplo Hotel Gevora 2", form = myprofile_Form)
     elif request.method == 'GET':
-        myprofile_Form.name.data = usuario[1]
-        myprofile_Form.lastname.data = usuario[2]
-        myprofile_Form.sex.data = usuario[5]
-        # myprofile_Form.address.data = usuario[1]
-        myprofile_Form.username.data = usuario[0]
-        myprofile_Form.tel.data = usuario[6]
-        myprofile_Form.birddate.data = datetime.strptime(usuario[4],'%Y-%m-%d').date()
+        if usuario:
+            myprofile_Form.name.data = usuario[1]
+            myprofile_Form.lastname.data = usuario[2]
+            myprofile_Form.sex.data = usuario[5]
+            # myprofile_Form.address.data = usuario[1]
+            myprofile_Form.username.data = usuario[0]
+            myprofile_Form.tel.data = usuario[6]
+            myprofile_Form.birddate.data = datetime.strptime(usuario[4],'%Y-%m-%d').date()
+           
+        else:
+             flash('No hay Usuarios Registrados!')
 
         return render_template('myprofile.html',form=myprofile_Form, titulo="Mi Perfil")
         
@@ -77,7 +81,6 @@ def admohab():
 @app.route('/historialReserva')
 def historeserva():
     reserva = db.sql_select_all_ReservaU(g.user)
-    print(reserva[1])
     flash("Lista de reservas")
     return render_template('historialReserva.html', lreservas = reserva, titulo="Historial de Reservas")
 
@@ -96,9 +99,10 @@ def vistaadminusuarios():
 
 @app.route('/ControlHabitacion', methods=['GET','POST'])
 def controlHabitacion():
-    acc = request.args.get["acc"]
-    estado = request.args.get["estado"]
-    idHab = request.args.get["idHab"]
+    acc = request.args.get('acc')
+    print(acc)
+    estado = request.args.get("estado")
+    idHab = request.args.get("idHab")
     
     if acc == 'Eliminar+Habitacion':
         bd.sql_delete_habitacion(idHab)
