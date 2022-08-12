@@ -40,8 +40,8 @@ def sql_crear_tabla_habitaciones():
     con.commit()
     con.close()
 #------------------------------------------------------------------------------------------------------------------
-def sql_update_habitacion(id, Estado):
-    strsql = "UPDATE Habitaciones SET Estado = "+Estado+" WHERE Id = "+id+";"
+def sql_update_habitacion(id, Nestado):
+    strsql = 'UPDATE Habitaciones SET Estado = "'+Nestado+'" WHERE Id = '+id+';'
     print(strsql)
     con = sql_connection()
     cursor_Obj = con.cursor()
