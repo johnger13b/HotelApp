@@ -9,6 +9,7 @@ import forms
 from forms import Habitacion, Usuarios
 from forms import profileform
 import dB as diana
+from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
 app.config.from_object(configuracion)
@@ -114,6 +115,9 @@ def updarerate():
 @app.route('/login')
 def loginfor():
     login_Form = forms.loginForm()
+    hash_password = generate_password_hash(request.form['password'], method='sha256')
+    username= request.form['username']
+    new_user = usuario(username, hash_password)    
     return render_template('login.html', titulo="Ejemplo Hotel Gevora 2", form = login_Form)
 
 @app.route('/SignUp')
@@ -161,7 +165,8 @@ def MoonKnight():
         Email= request.form["email"]
         Nombres= request.form["name"]
         Apellidos= request.form["lastname"]
-        Contraseña= request.form["contra"]
+        hash_password = generate_password_hash(request.form["contra"], method='sha256')
+        Contraseña= hash_password
         FechadeNacimiento= request.form["birddate"]
         Genero= request.form["sex"]
         Rol= request.form["rol"]
