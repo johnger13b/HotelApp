@@ -3,6 +3,7 @@
 <!-- ============================ Divisor izquierdo reserva  =================================== -->
     {% from "_macro.html" import render_field %}
     {% from "_macro.html" import render_buttonfield %}
+    {% from "_macro.html" import render_simple_field %}
     <div class="container py-1  px-5  " >
         <div class="row text-center">
             <div class="p-2 col text-center mb-4 gradient-navbar" >
@@ -53,19 +54,22 @@
         <div class="row justify-content-center  ">
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 py-3 px-4 bg-white w-75 ">
                 <h2 class="mb-xxl-5 text-center">Historial de Reservas</h2>
-                <table class="table  table-striped " style="background-color: #3590bb;">
+                <!-- <table class="table  table-striped " style="background-color: #3590bb;"> -->
+                <table id="ScrollTry" class="table table-striped table-bordered table-sm " style="background-color: #3590bb;" cellspacing="0" width="100%">
+                    
                     <thead>
                         <tr>
-                            <th class="centrado text-light">Fecha Checkin</th>
-                            <th class="centrado text-light">Fecha CheckOut</th>
-                            <th class="centrado text-light justify-content-center text-center">Habitacion</th>
-                            <th class="centrado text-light">Estado</th>
-                            <th class="centrado text-light">Costo</th>
-                            <th class="centrado text-light">calificación</th>
-                            <th class="centrado text-light">calificar</th>
+                            <th class="th-sm centrado text-light">Fecha Checkin</th>
+                            <th class="th-sm centrado text-light">Fecha CheckOut</th>
+                            <th class="th-sm centrado text-light justify-content-center text-center">Habitacion</th>
+                            <th class="th-sm centrado text-light">Estado</th>
+                            <th class="th-sm centrado text-light">Costo</th>
+                            <th class="th-sm centrado text-light">calificación</th>
+                            <th class="th-sm centrado text-light">calificar</th>
                         </tr>
                     </thead>
-                    <tbody >
+                    
+                    <tbody  >
                         {% for reserv in lreservas %}
                             <tr style="background-color: #aaebff;">
                                 <td class="centrado">{{reserv[3]}}</td>
@@ -84,88 +88,97 @@
                                 {% endfor%}
                                 </th>
                                 <th class="centrado justify-content-center ">
-                                    <a href="#"><img src="{{ url_for('static', filename='images/Calificar.png') }}" alt="" width="50%"></a>
+                                    <a href="{{reserv[0]}}" data-bs-toggle="modal" data-bs-target="#exampleModal" id="{{ reserv[0] }}"><img src="{{ url_for('static', filename='images/Calificar.png') }}" alt="" width="50%"></a>
                                 </th>
+                                <script>
+                                    // function tomar_valor() {
+ 
+                                    //     var anchor = document.getElementById("{{ reserv[0] }}");
+                                    //      alert(anchor);
+                                    //     var href_val = anchor.getAttribute("href");
+                                    //     alert(href_val);
+                                    //     var href_val = href_val.split("#"); // Si no funciona proba: var href_val =  href_val.split("\#");
+                                        
+                                    //     var ancla_actual = href_val[href_val.length-1];
+                                        
+                                    //     return ancla_actual;
+                                    
+                                    // }
+                                    document.getElementById('{{ reserv[0] }}').onclick = function() {
+                                        var href = document.querySelector('a').getAttribute('id');
+                                        document.rate_modal.idReserva.value = "{{ reserv[0] }}";
+                                    }
+                                </script>
                             </tr>
                         {% endfor%}
-<!--                         
-                        <tr style="background-color: #aaebff;">
-                            <td class="centrado">1</td>
-                            <th class="centrado">02/05/2019</th>
-                            <th class="centrado">06/06/2019</th>
-                            <th class="centrado">09/06/2019</th>
-                            <th class="centrado">203</th>
-                            <th class="centrado">2</th>
-                            <th class="centrado">
-                                <img src=" {{ url_for('static', filename='images/icons8-star-48.png') }}" alt="" width="10%">
-                                <img src=" {{ url_for('static', filename='images/icons8-star-48.png') }}" alt="" width="10%">
-                                <img src=" {{ url_for('static', filename='images/icons8-star-48.png') }}" alt="" width="10%">
-                                <img src=" {{ url_for('static', filename='images/icons8-star-48.png') }}" alt="" width="10%">
-                                <img src=" {{ url_for('static', filename='images/icons8-star-48.png') }}" alt="" width="10%">
-                            </th>
-                            <th class="centrado justify-content-center ">
-                                <a href="#"><img src="{{ url_for('static', filename='images/Calificar.png') }}" alt="" width="50%"></a>
-                            </th>
-                        </tr>
-                        <tr style="background-color: #6eb1c7;">
-                            <td class="centrado">2</td>
-                            <th class="centrado">02/05/2019</th>
-                            <th class="centrado">06/06/2019</th>
-                            <th class="centrado">09/06/2019</th>
-                            <th class="centrado">203</th>
-                            <th class="centrado">2</th>
-                            <th class="centrado">
-                                <img src=" {{ url_for('static', filename='images/icons8-star-48.png') }}" alt="" width="10%">
-                                <img src=" {{ url_for('static', filename='images/icons8-star-48.png') }}" alt="" width="10%">
-                                <img src=" {{ url_for('static', filename='images/icons8-star-48.png') }}" alt="" width="10%">
-                                <img src=" {{ url_for('static', filename='images/icons8-star-48.png') }}" alt="" width="10%">
-                                <img src=" {{ url_for('static', filename='images/icons8-star-48.png') }}" alt="" width="10%">
-                            </th>
-                            <th class="centrado justify-content-center ">
-                                <a href="#"><img src="{{ url_for('static', filename='images/Calificar.png') }}" alt="" width="50%"></a>
-                            </th>
-                        </tr>
-                        <tr style="background-color: #aaebff;">
-                            <td class="centrado">3</td>
-                            <th class="centrado">02/05/2019</th>
-                            <th class="centrado">06/06/2019</th>
-                            <th class="centrado">09/06/2019</th>
-                            <th class="centrado">203</th>
-                            <th class="centrado">2</th>
-                            <th class="centrado">
-                                <img src="../src/img/icons8-star-48.png" alt="" width="10%">
-                                <img src="../src/img/icons8-star-48.png" alt="" width="10%">
-                                <img src="../src/img/icons8-star-48.png" alt="" width="10%">
-                                <img src="../src/img/icons8-star-48.png" alt="" width="10%">
-                                <img src="../src/img/icons8-star-48.png" alt="" width="10%">
-                            </th>
-                            <th class="centrado justify-content-center ">
-                                <a href="#"><img src="../src/img/Calificar.png" alt="" width="50%"></a>
-                            </th>
-                        </tr>
-                        <tr style="background-color: #6eb1c7;">
-                            <td class="centrado">4</td>
-                            <th class="centrado">02/05/2019</th>
-                            <th class="centrado">06/06/2019</th>
-                            <th class="centrado">09/06/2019</th>
-                            <th class="centrado">203</th>
-                            <th class="centrado">2</th>
-                            <th class="centrado">
-                                <img src="../src/img/icons8-star-48.png" alt="" width="10%">
-                                <img src="../src/img/icons8-star-48.png" alt="" width="10%">
-                                <img src="../src/img/icons8-star-48.png" alt="" width="10%">
-                                <img src="../src/img/icons8-star-48.png" alt="" width="10%">
-                                <img src="../src/img/icons8-star-dark.png" alt="" width="10%">
-                            </th>
-                            <th class="centrado justify-content-center ">
-                                <a href="#"><img src="../src/img/Calificar.png" alt="" width="50%"></a>
-                            </th>
-                        </tr> -->
                     </tbody>
                 </table>
             </div>
         </div>
         <!-- <div class="b-example-vr"></div> -->
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Calificar Reserva</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                ...
+                    <div class="form-group align-items-center">
+                        <div class="star_rating align-items-center">
+                            <p class=" text-center">Como fue tu Experiencia?</p>
+                            <button class="star">&#9734</button>
+                            <button class="star">&#9734</button>
+                            <button class="star">&#9734</button>
+                            <button class="star">&#9734</button>
+                            <button class="star">&#9734</button>
+                            <p class='current_rating text-center'>0 de 5</p>               
+                        </div>
+                        <script>
+                            const allStars = document.querySelectorAll('.star');
+                            let current_rating = document.querySelector('.current_rating');
+                            allStars.forEach((star, i)=>{
+                                star.onclick = function(){
+                                    let current_star_level = i + 1;
+                                    current_rating.innerText = `${current_star_level} of 5`;
+                                    document.rate_modal.rate.value = current_star_level;
+                                    allStars.forEach((star, j)=>{
+                                        // console.log(j+1);
+                                        if(current_star_level >= j+1){
+                                            star.innerHTML = '&#9733';
+                                        }else{
+                                            star.innerHTML = '&#9734';
+                                        }
+                                    })                                    
+                                }
+                            })   
+                        </script>
+                        <form action="/updateRateReserva" method="post"  name="rate_modal" id="rate_modal">
+                            <label>Comentarios</label>
+                            <!-- <input name="rate" type="hidden" value="" class="current_rating" id="rate">
+                            <input name="idReserva" type="hidden" value="" class="idReserva" id="idReserva">    
+                            <input class="form-control" name="comment" type="text" value="Comentarios"> -->
+                            {{ render_simple_field(form.IdReserva, type='hidden', class='current_rating', id='idReserva' ) }}
+                            {{ render_simple_field(form.rate, type='hidden', class='idReserva', id='rate' ) }}
+                            {{ render_simple_field(form.comentario, type='text', class='form-control form-control-sm') }}
+                       
+                    </div>
+                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <!-- <button type="submit" class="btn btn-primary">Guardar</button> -->
+                    {{ render_buttonfield(form.send, class='btn btn-primary gradient-navbar btn-md  btn-block text-light fw-bold') }} 
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    <!-- {% block modal %}
+    {% endblock %} -->
 {% endblock %}
- 
+{% block script %}
+
+{% endblock %}

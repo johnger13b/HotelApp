@@ -24,3 +24,9 @@ class profileform(Form):
     username = EmailField('Correo:', validators=[DataRequired()])
     contra = PasswordField('Contraseña')
     send = SubmitField('Actualizar')
+
+class rateform(Form):
+    IdReserva = StringField('IdReserva', validators=[DataRequired()])
+    rate = StringField('Rate', validators=[DataRequired()])
+    comentario = StringField('Comentario:', validators=[DataRequired()])
+    send = SubmitField('Guardar')
