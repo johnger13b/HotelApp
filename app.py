@@ -1,4 +1,4 @@
-from flask import request, Flask,flash, render_template, jsonify, url_for, session, g
+from flask import request, Flask,flash, render_template, jsonify, url_for, session, g, redirect
 # from flask_login  import UserMixin, login_user, Login_Manager, login_required, logout_user, current_user
 from datetime import datetime
 import crudHabitacion as bd
@@ -10,7 +10,7 @@ import forms
 from forms import Habitacion, Usuarios
 from forms import profileform
 import dB as diana
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config.from_object(configuracion)
@@ -27,7 +27,7 @@ def cerrar():
     flash("Sesion Cerrada")
     session.clear()
     g.user = None
-    return render_template('index.html')
+    return redirect(url_for('login'))
 
 @app.before_request
 def before_request():
@@ -115,20 +115,34 @@ def updarerate():
     return historeserva()
 
 @app.route('/login', methods=['GET', 'POST'])
-def loginfor():
+def login():
     login_Form = forms.loginForm()
     if request.method == 'POST':
+        print("Entro en el Post")
         hash_password = generate_password_hash(request.form['password'], method='sha256')
-        username= request.form['username']
-        usuario = db.sql_auth_user(username, hash_password)
+        print(hash_password)
+        print(request.form['password'])
+        print(request.form['email'])
+        username = request.form['email']
+        usuario = db.sql_select_all_usuario(username)
+        print(usuario[3])
         if usuario:
-            session['username'] = username
-            session['rol']= usuario[7]
+            result=check_password_hash(usuario[3], request.form['password'])
+            if result != False:
+                session['username'] = username
+                session['rol']= usuario[7]
+                print("ingreso satisfactoriamente")
+                return redirect(url_for('index'))
+               
+            else:
+                flash("Invalid username or password")
         else:
             flash("Invalid username or password")
+
+    return render_template('login.html', titulo="Ejemplo Hotel Gevora 2")       
         
     # new_user = usuario(username, hash_password)    
-    return render_template('login.html', titulo="Ejemplo Hotel Gevora 2", form = login_Form)
+    
 
 @app.route('/SignUp')
 def signup():
