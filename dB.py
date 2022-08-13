@@ -73,3 +73,13 @@ def sql_auth_user(username, password):
     usuario = cursor_Obj.fetchall()
     con.close()
     return usuario
+
+def morpheo(FechaInicio, FechaFinal, costo, Estado):
+    con = sql_connection()
+    cursor_Obj = con.cursor()
+    dreamer = "INSERT INTO Reservas (FechaInicio, FechaFinal, costo, Estado) VALUES(?, ?, ?, ?);"
+    print(FechaInicio)
+    cursor_Obj.execute(dreamer,(FechaInicio, FechaFinal, costo, Estado))
+    con.commit()
+    con.close()
+

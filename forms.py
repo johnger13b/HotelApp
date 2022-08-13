@@ -42,7 +42,8 @@ class Usuarios(Form):
     signup = SubmitField('Registrar')
 
 class Reservas(Form):
+    daterbird = DateField('FechaFinal:', validators=[DataRequired()])
     costo = SelectField('Costo:', choices=[('$150', '$150')], validators=[DataRequired()])
     estado = SelectField('Estado:', choices=[('Cancelada', 'Cancelada'), ('Activada', 'Activada'), ('Finalizada', 'Finalizada')], validators=[DataRequired()])
-    birddate = DateField('FechadeNacimiento:', validators=[DataRequired()])
+    birddate = DateField('FechaInicio:', validators=[DataRequired()])
     buy = SubmitField('Comprar')

@@ -7,7 +7,7 @@ from settings.config import configuracion
 import sqlite3
 from sqlite3 import Error
 import forms
-from forms import Habitacion, Usuarios
+from forms import Habitacion, Reservas, Usuarios
 from forms import profileform
 import dB as diana
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -205,5 +205,21 @@ def MoonKnight():
         diana.mardeluna(Email, Nombres, Apellidos, Contraseña, FechadeNacimiento, Genero, Rol)
         flash(f"Usuario {Email} registrado correctamente")
         return render_template('login.html', titulo="Registro de nuevo producto", form = lunera)
+
+@app.route('/Quijote', methods=['GET', 'POST'])
+def Dulcinea():
+    Sancho = forms.Reservas(request.form)
+    if request.method == 'GET':
+        form = Reservas()
+    if request.method == 'POST':
+        FechaInicio= request.form["birddate"]
+        FechaFinal= request.form["daterbird"]
+        costo= request.form["costo"]
+        Estado= request.form["estado"]
+        diana.morpheo(FechaInicio, FechaFinal, costo, Estado)
+        flash(f"Usuario {FechaInicio} registrado correctamente")
+        return render_template('base.html', titulo="Registro de nuevo producto", form = Sancho)
+
+
 
 app.run(debug=True)
