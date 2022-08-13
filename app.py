@@ -154,7 +154,8 @@ def signup():
 
 @app.route('/Reservas')
 def reservas():
-    return render_template('Reservas.html', titulo="Ejemplo Hotel Gevora 2")
+    form=forms.Usuarios(request.form)
+    return render_template('Reservas.html', form=form, titulo="Ejemplo Hotel Gevora 2")
 
 @app.route('/Vista_admin_usuarios')
 def vistaadminusuarios():

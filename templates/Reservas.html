@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
+{% extends "base.html" %}
+{% block principal %}
+{% from "_macro.html" import render_field %}
+{% from "_macro.html" import render_simple_field %}
+{% from "_macro.html" import render_buttonfield %}
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,55 +19,17 @@
 </head>
 
 <body>
-  <main class="d-flex flex-nowrap">
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <span class="fs-4">Gevora Hotel</span>
-      </a>
-      <hr>
-      <ul class="nav nav-pills flex-column mb-auto text-white">
-        <li class="nav-item">
-          <a href="#" class="nav-link text-white active">
-            <span class="bi bi-plus-square-fill"> Reserva habitaciones</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link text-white">
-            <span class="bi bi-calendar2-week"> Mi historial</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link text-white">
-            <span class="bi bi-person-circle"> Mi perfil</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link text-white">
-            <span class="bi bi-gear-wide-connected"> Administracion</span>
-          </a>
-        <li>
-      </ul>
-      <hr>
-      <div class="dropdown">
-        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>Usuario</strong>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
-        </ul>
-      </div>
-    </div>
     <div class="b-example-vr"></div>
     <div class="d-flex flex-column w-100 justify-content-center">
       <h1 class="mb-xxl-5 text-center">Reserva tus habitaciones</h1>
       <div id="search-container" class="d-flex justify-content-center">
         <label for="Desde">Desde:
-          <input name="Desde" type="date" class="form-control-sm">
+            {{ render_simple_field(form.birddate, class='form-control form-control-sm') }}
+            <!-- <input name="Desde" type="date" class="form-control-sm"> -->
         </label>
         <label for="Hasta">Hasta:
-          <input name="Hasta" type="date" class="form-control-sm">
+            {{ render_simple_field(form.birddate, class='form-control form-control-sm') }}
+            <!-- <input name="Hasta" type="date" class="form-control-sm"> -->
         </label>
       </div>
       <div class="container d-flex flex-column justify-content-center">
@@ -75,5 +42,6 @@
     integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
     crossorigin="anonymous"></script>
 </body>
+{% endblock %}
 
 </html>
