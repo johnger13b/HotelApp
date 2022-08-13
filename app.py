@@ -116,30 +116,33 @@ def updarerate():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    login_Form = forms.loginForm()
-    if request.method == 'POST':
-        print("Entro en el Post")
-        hash_password = generate_password_hash(request.form['password'], method='sha256')
-        print(hash_password)
-        print(request.form['password'])
-        print(request.form['email'])
-        username = request.form['email']
-        usuario = db.sql_select_all_usuario(username)
-        print(usuario[3])
-        if usuario:
-            result=check_password_hash(usuario[3], request.form['password'])
-            if result != False:
-                session['username'] = username
-                session['rol']= usuario[7]
-                print("ingreso satisfactoriamente")
-                return redirect(url_for('index'))
-               
+    if 'username' in session:
+        return redirect(url_for('index'))
+    else:
+        login_Form = forms.loginForm()
+        if request.method == 'POST':
+            print("Entro en el Post")
+            hash_password = generate_password_hash(request.form['password'], method='sha256')
+            print(hash_password)
+            print(request.form['password'])
+            print(request.form['email'])
+            username = request.form['email']
+            usuario = db.sql_select_all_usuario(username)
+            print(usuario[3])
+            if usuario:
+                result=check_password_hash(usuario[3], request.form['password'])
+                if result != False:
+                    session['username'] = username
+                    session['rol']= usuario[7]
+                    print("ingreso satisfactoriamente")
+                    return redirect(url_for('index'))
+                
+                else:
+                    flash("Invalid username or password")
             else:
                 flash("Invalid username or password")
-        else:
-            flash("Invalid username or password")
 
-    return render_template('login.html', titulo="Ejemplo Hotel Gevora 2")       
+        return render_template('login.html', titulo="Ejemplo Hotel Gevora 2")       
         
     # new_user = usuario(username, hash_password)    
     
