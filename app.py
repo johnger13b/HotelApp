@@ -1,7 +1,6 @@
 from flask import request, Flask,flash, render_template, jsonify, url_for, session, g, redirect
 # from flask_login  import UserMixin, login_user, Login_Manager, login_required, logout_user, current_user
 from datetime import datetime
-import crudHabitacion as bd
 import dB as db
 from settings.config import configuracion
 import sqlite3
@@ -77,7 +76,7 @@ def mprofile():
 
 @app.route('/admo_hab')
 def admohab():
-    lista = bd.sql_select_habitaciones()
+    lista = diana.sql_select_habitaciones()
     print(lista)
     return render_template('admo_hab.html',l_hab=lista, titulo="Ejemplo Hotel Gevora 2")
 
@@ -169,13 +168,13 @@ def controlHabitacion():
     idHab = request.form["idHab"]
     
     if acc == 'Eliminar Habitacion':
-        bd.sql_delete_habitacion(idHab)
+        diana.sql_delete_habitacion(idHab)
        
     elif acc == 'Actualizar':
-        bd.sql_update_habitacion(idHab, estado)
+        diana.sql_update_habitacion(idHab, estado)
         
     elif acc == 'Nueva Habitacion':
-        lista = bd.sql_select_habitaciones()
+        lista = diana.sql_select_habitaciones()
         j=0
         for i in lista:
             j+=1
@@ -184,7 +183,7 @@ def controlHabitacion():
                 # break
             print(i[0])
         j =str(j)
-        bd.sql_add_habitacion(j, "Disponible")
+        diana.sql_add_habitacion(j, "Disponible")
   
     return admohab()
 
@@ -219,6 +218,13 @@ def Dulcinea():
         diana.morpheo(FechaInicio, FechaFinal, costo, Estado)
         flash(f"Usuario {FechaInicio} registrado correctamente")
         return render_template('base.html', titulo="Registro de nuevo producto", form = Sancho)
+
+@app.route('/Marte', methods=['GET', 'POST'])
+def Harmonia():
+    Adrestia = request.form["Id"]
+    diana.venus(Adrestia)
+
+
 
 
 
