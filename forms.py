@@ -41,8 +41,8 @@ class Usuarios(Form):
     rol = SelectField('Genero:', choices=[('Usuario', 'Usuario'), ('Administrador', 'Administrador'), ('Superadministrador', 'Superadministrador')], validators=[DataRequired()])
     signup = SubmitField('Registrar')
 
-class Usuarios(Form):
+class Reservas(Form):
     costo = SelectField('Costo:', choices=[('$150', '$150')], validators=[DataRequired()])
     estado = SelectField('Estado:', choices=[('Cancelada', 'Cancelada'), ('Activada', 'Activada'), ('Finalizada', 'Finalizada')], validators=[DataRequired()])
     birddate = DateField('FechadeNacimiento:', validators=[DataRequired()])
-    signup = SubmitField('Hacer')
+    buy = SubmitField('Comprar')
