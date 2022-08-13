@@ -1,4 +1,5 @@
 from flask import request, Flask,flash, render_template, jsonify, url_for, session, g
+from flask_login  import UserMixin, login_user, Login_Manager, login_required, logout_user, current_user
 from datetime import datetime
 import crudHabitacion as bd
 import dB as db
