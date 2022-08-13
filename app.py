@@ -3,12 +3,9 @@ from flask import request, Flask,flash, render_template, jsonify, url_for, sessi
 from datetime import datetime
 import dB as db
 from settings.config import configuracion
-import sqlite3
-from sqlite3 import Error
 import forms
 from forms import Habitacion, Reservas, Usuarios
 from forms import profileform
-
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
@@ -317,39 +314,39 @@ def Buscar():
 
 # ===========================================================================
 
-acc = request.form['acc']
-print(acc)
+""" acc = request.form['acc']
+print(acc) """
 
-if acc == 'Eliminar Usuario':
-    @app.route('/EliminarUser', methods=['GET', 'POST'])
-    def Delete():
-        if 'username' in session:
-            Mario = forms.Usuarios(request.form)
-            if request.method == 'GET':
-                form = Usuarios()
-            if request.method == 'POST':
-                Email = request.form["email"]
-                db.sql_delete_user(Email)
-                flash(f"Usuario {Email} Eliminado.")
-                return render_template('Vista_admin_Usuarios.html', form = Mario)
+""" if acc == 'Eliminar Usuario': """
+@app.route('/EliminarUser', methods=['GET', 'POST'])
+def Delete():
+    if 'username' in session:
+         Mario = forms.Usuarios(request.form)
+         if request.method == 'GET':
+            form = Usuarios()
+         if request.method == 'POST':
+            Email = request.form["email"]
+            db.sql_delete_user(Email)
+            flash(f"Usuario {Email} Eliminado.")
+            return render_template('Vista_admin_Usuarios.html', form = Mario)
 
-if acc == 'Actualizar Habitacion':
-    @app.route('/EditarUser', methods=['GET', 'POST'])
-    def Delete():
-        if 'username' in session:
-            Luigi = forms.Usuarios(request.form)
-            if request.method == 'GET':
-                form = Usuarios()
-            if request.method == 'POST':
-                Email = request.form["email"]
-                Nombres= request.form["name"]
-                Apellidos= request.form["lastname"]
-                Genero= request.form["sex"]
-                FechaInicio= request.form["birddate"]
-                FechaFinal= request.form["daterbird"]
-                db.mardeluna(Email, Nombres, Apellidos, Genero)
-                db.sql_add_reservas(FechaInicio, FechaFinal)
-                flash(f"Usuario {Email} Actualizado.")
-                return render_template('Vista_admin_Usuarios.html', form = Luigi)
+""" if acc == 'Actualizar Usuario': """
+@app.route('/EditarUser', methods=['GET', 'POST'])
+def Edit():
+    if 'username' in session:
+        Luigi = forms.Usuarios(request.form)
+        if request.method == 'GET':
+            form = Usuarios()
+        if request.method == 'POST':
+            Email = request.form["email"]
+            Nombres= request.form["name"]
+            Apellidos= request.form["lastname"]
+            Genero= request.form["sex"]
+            FechaInicio= request.form["birddate"]
+            FechaFinal= request.form["daterbird"]
+            db.mardeluna(Email, Nombres, Apellidos, Genero)
+            db.sql_add_reservas(FechaInicio, FechaFinal)
+            flash(f"Usuario {Email} Actualizado.")
+            return render_template('Vista_admin_Usuarios.html', form = Luigi)
 
 app.run(debug=True)
