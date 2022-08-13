@@ -219,3 +219,12 @@ def sql_delete_usuario(id):
     cursor_Obj.execute(strsql)
     con.commit()
     con.close()
+
+def venus(id):
+    eros = "DELETE FROM Reservas WHERE Id = "+id+";"
+    print(eros)
+    con = sql_connection()
+    cursor_Obj = con.cursor()
+    cursor_Obj.execute(eros)
+    con.commit()
+    con.close()
