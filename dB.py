@@ -74,12 +74,12 @@ def sql_auth_user(username, password):
     con.close()
     return usuario
 
-def morpheo(FechaInicio, FechaFinal, costo, Estado):
+def sql_add_reservas(FechaInicio, FechaFinal, costo, Estado,user):
+    dreamer = "INSERT INTO Reservas (FechaInicio, FechaFinal, costo, Estado, IdUsuario) VALUES(?, ?, ?, ?, ?);"
     con = sql_connection()
-    cursor_Obj = con.cursor()
-    dreamer = "INSERT INTO Reservas (FechaInicio, FechaFinal, costo, Estado) VALUES(?, ?, ?, ?);"
+    cursor_Obj = con.cursor()   
     print(FechaInicio)
-    cursor_Obj.execute(dreamer,(FechaInicio, FechaFinal, costo, Estado))
+    cursor_Obj.execute(dreamer,(FechaInicio, FechaFinal, costo, Estado, user))
     con.commit()
     con.close()
 
