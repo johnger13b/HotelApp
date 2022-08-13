@@ -63,3 +63,13 @@ def mardeluna(Email, Nombres, Apellidos, Contraseña, FechadeNacimiento, Genero,
     cursor_Obj.execute(datura,(Email, Nombres, Apellidos, Contraseña, FechadeNacimiento, Genero, Rol))
     con.commit()
     con.close()
+
+def sql_auth_user(username, password):
+    strsq="SELECT * FROM Usuarios WHERE Email = ? AND Contraseña =?;"
+    # strsq="SELECT * FROM Usuarios WHERE Email ='cway@outlook.com';"
+    con=sql_connection()
+    cursor_Obj=con.cursor()
+    cursor_Obj.execute(strsq,(username, password))
+    usuario = cursor_Obj.fetchall()
+    con.close()
+    return usuario

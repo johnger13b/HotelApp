@@ -1,5 +1,5 @@
 from flask import request, Flask,flash, render_template, jsonify, url_for, session, g
-from flask_login  import UserMixin, login_user, Login_Manager, login_required, logout_user, current_user
+# from flask_login  import UserMixin, login_user, Login_Manager, login_required, logout_user, current_user
 from datetime import datetime
 import crudHabitacion as bd
 import dB as db
@@ -17,7 +17,7 @@ app.config.from_object(configuracion)
 
 @app.route('/')
 def index():
-    session['username'] = 'cway@oulook.com'
+    session['username'] = 'cway@outlook.com'
     session['rol']= 'Administrador'
     return render_template('index.html', titulo="Ejemplo Hotel Gevora")
 
@@ -83,6 +83,7 @@ def admohab():
 
 @app.route('/historialReserva')
 def historeserva():
+    print(g.user)
     reserva = db.sql_select_all_ReservaU(g.user)
     rate_Form = forms.rateform(request.form)
     # if request.method == 'POST':
@@ -113,12 +114,20 @@ def updarerate():
     # return render_template('historialReserva.html', form=rate_Form, lreservas = reserva, titulo="Historial de Reservas")
     return historeserva()
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def loginfor():
     login_Form = forms.loginForm()
-    hash_password = generate_password_hash(request.form['password'], method='sha256')
-    username= request.form['username']
-    new_user = usuario(username, hash_password)    
+    if request.method == 'POST':
+        hash_password = generate_password_hash(request.form['password'], method='sha256')
+        username= request.form['username']
+        usuario = db.sql_auth_user(username, hash_password)
+        if usuario:
+            session['username'] = username
+            session['rol']= usuario[7]
+        else:
+            flash("Invalid username or password")
+        
+    # new_user = usuario(username, hash_password)    
     return render_template('login.html', titulo="Ejemplo Hotel Gevora 2", form = login_Form)
 
 @app.route('/SignUp')
@@ -132,10 +141,10 @@ def vistaadminusuarios():
 
 @app.route('/ControlHabitacion', methods=['GET','POST'])
 def controlHabitacion():
-    acc = request.args.get('acc')
+    acc = request.form['acc']
     print(acc)
-    estado = request.args.get("estado")
-    idHab = request.args.get("idHab")
+    estado = request.form["estado"]
+    idHab = request.form["idHab"]
     
     if acc == 'Eliminar Habitacion':
         bd.sql_delete_habitacion(idHab)
