@@ -40,3 +40,8 @@ class Usuarios(Form):
     email = EmailField('Correo Electronico:', validators=[DataRequired()])
     rol = SelectField('Genero:', choices=[('Usuario', 'Usuario'), ('Administrador', 'Administrador'), ('Superadministrador', 'Superadministrador')], validators=[DataRequired()])
     signup = SubmitField('Registrar')
+
+class Usuarios(Form):
+    costo = SelectField('Sexo:', choices=[('$150', '$150')], validators=[DataRequired()])
+    birddate = DateField('FechadeNacimiento:', validators=[DataRequired()])
+    signup = SubmitField('Registrar')
