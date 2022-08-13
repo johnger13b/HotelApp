@@ -297,4 +297,59 @@ def Harmonia():
 
 # ===========================================================================
 
+@app.route('/BuscarUser', methods=['GET', 'POST'])
+def Buscar():
+    if 'username' in session:
+        Peach = forms.Usuarios(request.form)
+        if request.method == 'GET':
+            form = Usuarios()
+        if request.method == 'POST':
+            Email = request.form["email"]
+            Nombres= request.form["name"]
+            Apellidos= request.form["lastname"]
+            Genero= request.form["sex"]
+            FechaInicio= request.form["birddate"]
+            FechaFinal= request.form["daterbird"]
+            db.mardeluna(Email, Nombres, Apellidos, Genero)
+            db.sql_add_reservas(FechaInicio, FechaFinal)
+            flash(f"Usuario {Email} encontrado.")
+            return render_template('Vista_admin_Usuarios.html', form = Peach)
+
+# ===========================================================================
+
+acc = request.form['acc']
+print(acc)
+
+if acc == 'Eliminar Usuario':
+    @app.route('/EliminarUser', methods=['GET', 'POST'])
+    def Delete():
+        if 'username' in session:
+            Mario = forms.Usuarios(request.form)
+            if request.method == 'GET':
+                form = Usuarios()
+            if request.method == 'POST':
+                Email = request.form["email"]
+                db.sql_delete_user(Email)
+                flash(f"Usuario {Email} Eliminado.")
+                return render_template('Vista_admin_Usuarios.html', form = Mario)
+
+if acc == 'Actualizar Habitacion':
+    @app.route('/EditarUser', methods=['GET', 'POST'])
+    def Delete():
+        if 'username' in session:
+            Luigi = forms.Usuarios(request.form)
+            if request.method == 'GET':
+                form = Usuarios()
+            if request.method == 'POST':
+                Email = request.form["email"]
+                Nombres= request.form["name"]
+                Apellidos= request.form["lastname"]
+                Genero= request.form["sex"]
+                FechaInicio= request.form["birddate"]
+                FechaFinal= request.form["daterbird"]
+                db.mardeluna(Email, Nombres, Apellidos, Genero)
+                db.sql_add_reservas(FechaInicio, FechaFinal)
+                flash(f"Usuario {Email} Actualizado.")
+                return render_template('Vista_admin_Usuarios.html', form = Luigi)
+
 app.run(debug=True)
