@@ -1,98 +1,145 @@
 {% extends "base.html" %}
 {% block principal %}
 
-    <section class="vh-120" style="background-color: rgba(158, 197, 248, 0.904);">
-        <div class="container h-120">
-            <div class="row d-flex align-items-center h-100">
-                <div class="card text-black" style="border-radius: 20px;">
-                    <div class="card-body p-md-5">
-                        <div class="row justify-content-center">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="{{ url_for('static', filename='css/miEstilo.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
+    <title>Administracion de Usuarios </title>
+</head>
 
-                            <h1 class="text-center h1 fw-bold mb-4 mx-1 mx-md-4 mt-4">
-                                Administración de Usuarios
-                            </h1>
+<section class="vh-120" style="background-color: rgba(158, 197, 248, 0.904);">
+    <div class="container h-120">
 
-                            <form class="mx-1 mx-md-4">
-                                <div class="d-flex flex-row align-items-center mb-4">
-                                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                                    <div class="form-outline flex-fill mb-2">
-                                        <label class="form-label"><strong>
-                                                Selecciona tu rol:
-                                            </strong></label>
-                                        <select class="select">
-                                            <option value="0" style="color:#9c9c9c" value="0">
-                                                Selecciona una opción
-                                            </option>
-                                            <option value="1">
-                                                Administrador
-                                            </option>
-                                            <option value="2">
-                                                Superadministrador
-                                            </option>
-                                        </select>
+        <div class="row text-center justify-content-center align-items-center ">
+            <h1 class="mt-5 text-align-center">Administracion de Uusarios</h1>
+        </div>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+            <li class="breadcrumb-item active">Usuarios</li>
+        </ol>
+
+        <div class="row d-flex align-items-center h-100">
+            <div class="card text-black" style="border-radius: 20px;">
+                <div class="card-body p-md-5">
+                    <div class="row justify-content-center">
+
+                        <h1 class="text-center h1 fw-bold mb-4 mx-1 mx-md-4 mt-4">
+                            Administración de Usuarios
+                        </h1>
+
+                        <form class="mx-1 mx-md-4">
+                            <div class="d-flex flex-row align-items-center mb-4">
+                                <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                <div class="form-outline flex-fill mb-2">
+                                    <label class="form-label"><strong>
+                                            Selecciona tu rol:
+                                        </strong></label>
+                                    <select class="select">
+                                        <option value="0" style="color:#9c9c9c" value="0">
+                                            Selecciona una opción
+                                        </option>
+                                        <option value="1">
+                                            Administrador
+                                        </option>
+                                        <option value="2">
+                                            Superadministrador
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-row align-items-center mb-4">
+                                <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                <div class="form-outline flex-fill mb-2">
+                                    <label class="form-label"><strong>
+                                            Digita id:</strong>
+                                    </label>
+                                    <input type="text" />
+                                </div>
+                            </div>
+
+                            <select name="idUsARIO">
+                                {% for usuario in l_usuario %}
+                                <option value={{ usuario[username] }}> {{ usuario[username] }} </option>
+                                {% endfor %}
+
+                            </select>
+
+                            <div class="d-flex flex-row align-items-center mb-4">
+                                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                <div class="form-outline flex-fill mb-2">
+                                    <label class="form-label">
+                                        <strong>
+                                            Busca Información del Usuario:
+                                        </strong>
+                                    </label><br>
+                                    <label class="form-label">Correo Electrónico:</label>
+                                    <input type="Identificación" id="Email" />
+                                    <div class="col-md-3 mb-2">
+                                        <div class="input-group">
+                                            <input type="submit" class="btn btn-primary btn-block" name="acc"
+                                                value="Buscar" />
+                                        </div>
                                     </div>
                                 </div>
+                                <br>
+                                <br>
+                                <label class="form-label">
+                                    <strong>
+                                        Datos Encontrados:
+                                    </strong>
+                                </label><br>
 
-                                <div class="d-flex flex-row align-items-center mb-4">
-                                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                                    <div class="form-outline flex-fill mb-2">
-                                        <label class="form-label"><strong>
-                                                Digita id:</strong>
-                                        </label>
-                                        <input type="text" />
-                                    </div>
-                                </div>
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th> Nombres </th>
+                                            <th> Apellidos </th>
+                                            <th> Género </th>
+                                            <th> Teléfono </th>
+                                            <th> No. Habitación </th>
+                                            <th> Fecha Inicial </th>
+                                            <th> Fecha Final </th>
+                                            <th> Total a Pagar </th>
 
-                                <div class="d-flex flex-row align-items-center mb-4">
-                                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                                    <div class="form-outline flex-fill mb-2">
-                                        <label class="form-label">
-                                            <strong>
-                                                Busca Información del Usario:
-                                            </strong>
-                                        </label><br>
-                                        <label class="form-label">No. Identificación:</label>
-                                        <input type="Identificación" id="id_usuario" />
-                                        <button type="button" style="margin: 10px; BORDER: rgb(128,128,128);
-                                            BACKGROUND-COLOR: rgb(233,233,233)"> Buscar </button>
-                                        <br>
-                                        <br>
-                                        <label class="form-label">
-                                            <strong>
-                                                Datos Encontrados:
-                                            </strong>
-                                        </label><br>
-                                        <label class="form-label">Nombre Completo:</label>
-                                        <input type="name" id="nombre_usuario" /><br>
-                                        <label class="form-label">No. Habitación:</label>
-                                        <input type="number" id="habitacion_usuario" /><br>
-                                        <label class="form-label">Fecha Inicial:</label>
-                                        <input type="date" id="date1_usuario" /><br>
-                                        <label class="form-label">Fecha Final:</label>
-                                        <input type="date" id="date1_usuario" /><br>
-                                        <label class="form-label">Total a pagar:</label>
-                                        $ <input type="number" id="date1_usuario" /> <br>
-                                    </div>
-                                </div>
+                                        </tr>
+                                        {% for hab in l_hab %}
+                                        <tr>
+                                            <td>{{ usuario[username] }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                    </div>
 
-                                <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                    <button type="button" style="margin: 10px; BORDER: rgb(128,128,128);
-                                    BACKGROUND-COLOR: rgb(233,233,233)">
-                                        Actualizar
-                                    </button>
-
-                                    <button type="button" style="margin: 10px; BORDER: rgb(128,128,128);
-                                    BACKGROUND-COLOR: rgb(233,233,233)">
-                                        Eliminar
-                                    </button>
-                                </div>
-                            </form>
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <div class="input-group">
+                                <input type="submit" class="btn btn-primary btn-block" name="acc"
+                                    value="Eliminar Usuario" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="submit" class="btn btn-primary btn-block" name="acc"
+                                    value="Actualizar Usuario" />
+                            </div>
                         </div>
                     </div>
+
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+    </div>
+</section>
 {% endblock %}
 
 <!-- <!DOCTYPE html>
