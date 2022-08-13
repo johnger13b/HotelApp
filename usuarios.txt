@@ -1,0 +1,9 @@
+Usuario: mencarlos@gmail.com
+contraseña: 123456789
+
+Superadminstrador:  cway@outlook.com
+Contraseña 123456
+
+adminstrador:  jggg@gmail.com
+Contraseña jggg13
+
