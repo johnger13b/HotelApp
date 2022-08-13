@@ -17,6 +17,59 @@
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" /> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        table.dataTable thead .sorting:after,
+        table.dataTable thead .sorting:before,
+        table.dataTable thead .sorting_asc:after,
+        table.dataTable thead .sorting_asc:before,
+        table.dataTable thead .sorting_asc_disabled:after,
+        table.dataTable thead .sorting_asc_disabled:before,
+        table.dataTable thead .sorting_desc:after,
+        table.dataTable thead .sorting_desc:before,
+        table.dataTable thead .sorting_desc_disabled:after,
+        table.dataTable thead .sorting_desc_disabled:before {
+            bottom: .5em;
+        }
+        .star{
+            font-size: 3rem;
+            color: #ff9800;
+            background-color: unset;
+            border: none;
+        }
+        .rating_headings{
+            animation: scale-up 1s ease;
+        }
+        @keyframes scale-up {
+            0%{
+                opacity: 0;
+                transform: scale(.5);
+            }
+            100%{
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .star_rating{
+            user-select: none;
+            background-color: white;
+            padding: 1.4rem 2.5rem;
+            margin: 2rem;
+            border-radius: .4rem;
+            animation: slide-up 1s ease;
+        }
+        @keyframes slide-up {
+            0%{
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100%{
+                opacity: 1;
+                transform: scale(1);
+                transform: translateY(0px);
+            }
+        }
+        .star:hover{
+            cursor: pointer;
+        }
         .flex-container{
             margin: 5px;
             padding: 5px;
@@ -111,54 +164,66 @@
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto text-white">
                     <li class="nav-item">
-                        <a href="#" class="nav-link text-white active">
+                        <a href="/" class="nav-link text-white active">
                             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-                            Reserva habitaciones
+                            Inicio
                         </a>
                     </li>
-                    <li>
-                        <a href="homeProfile" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-                            Mi perfil
-                        </a>
-                    </li>
-                    <li>
-                        <a href="historialReserva" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-                            Mi historial
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Vista_admin_usuarios" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-                            Administracion de Usuarios
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Reservas" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-                            Reserva
-                        </a>
-                    </li>
-                    <li>
-                        <a href="admo_hab" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
-                            Administracion
-                        </a>
-                    <li>
+                    {% if 'username' in session:%}
+                        <li>
+                            <a href="Reservas" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+                                Reserva
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="homeProfile" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                                Mi perfil
+                            </a>
+                        </li>
+                        <li>
+                            <a href="historialReserva" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+                                Mis Reservas
+
+                            </a>
+                        </li>
+                        {% if  'username' in session: %}
+                        {% if 'Superadministrador' == g.rol: %}
+                            <li>
+                                <a href="admo_hab" class="nav-link text-white">
+                                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+                                    Administrar Habitaciones
+                                </a>
+                            </li>
+                            <li>
+                                <a href="Vista_admin_usuarios" class="nav-link text-white">
+                                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+                                    Administrar Usuarios
+                                </a>
+                            <li>
+                            <li>
+                        {% endif %} {% endif %}
+                    {% endif %}
                 </ul>
                 <hr>
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                        <strong>Sample User</strong>
+                        <strong>{{g.user}}</strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="SignUp">Sign Up</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><a class="dropdown-item" href="homeProfile">Profile</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/cerrar">Sign out</a></li>
+                        {% if not 'username' in session: %}
+                            <li><a class="dropdown-item" href="SignUp">Sign Up</a></li>
+                            <li><a class="dropdown-item" href="login">Sign In</a></li>
+                        {% endif %}
+                        {% if 'username' in session: %}
+                            <li><a class="dropdown-item" href="homeProfile">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/cerrar">Sign out</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -170,6 +235,26 @@
             <div class="b-example-vr"></div>
         </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/sidebars.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sidebars.js') }}">
+        const allStars = document.querySelectorAll('.star');
+        let current_rating = document.querySelector('.current-rating');
+
+        allStars.forEach((star, i)=>{
+            star.onclick = function(){
+                let current_star_level = i + 1;
+                current_rating.innerText = `${current_star_level} of 5`;
+        
+                allStars.forEach((star, j)=>{
+                    // console.log(j+1);
+                    if(current_star_level >= j+1){
+                        star.innerHTML = '&#9733';
+                    }else{
+                        star.innerHTML = '&#9734';
+                    }
+                })
+                
+            }
+        })
+    </script>
 </body>
 </html>
