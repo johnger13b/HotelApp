@@ -350,3 +350,6 @@ def Edit():
             return render_template('Vista_admin_Usuarios.html', form = Luigi)
 
 app.run(debug=True)
+
+if __name__ == '__main__':
+    app.run()

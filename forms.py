@@ -47,3 +47,7 @@ class Reservas(Form):
     estado = SelectField('Estado:', choices=[('Cancelada', 'Cancelada'), ('Activada', 'Activada'), ('Finalizada', 'Finalizada')], validators=[DataRequired()])
     birddate = DateField('FechaInicio:', validators=[DataRequired()])
     buy = SubmitField('Comprar')
+
+class button(Form):
+    edit = SubmitField('Eliminar Usuario')
+    delete = SubmitField('Borrar Usuario')
