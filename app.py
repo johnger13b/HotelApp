@@ -43,7 +43,7 @@ def before_request():
 def hprofile():
     if 'username' in session:
         print('No ingresa el usuario')
-        if session['rol'] == 'Usuario' or session['rol'] == 'Superadministrador':
+        if session['rol'] == 'Usuario' or session['rol'] == 'SuperAdministrador':
             return render_template('homeProfile.html', titulo="Ejemplo Hotel Gevora 2")
         else:
             return redirect(url_for('index'))
@@ -55,7 +55,7 @@ def hprofile():
 @app.route('/myProfile', methods=['GET', 'POST'])
 def mprofile():
     if 'username' in session:
-        if session['rol'] == 'Usuario' or session['rol'] == 'Superadministrador':
+        if session['rol'] == 'Usuario' or session['rol'] == 'SuperAdministrador':
             usuario = db.sql_select_all_usuario(g.user)
             myprofile_Form = forms.profileform(request.form)
             if request.method == 'POST':
@@ -92,7 +92,7 @@ def mprofile():
 @app.route('/admo_hab')
 def admohab():
     if 'username' in session:
-        if session['rol'] == 'Superadministrador':
+        if session['rol'] == 'SuperAdministrador':
             lista = db.sql_select_habitaciones()
             return render_template('admo_hab.html',l_hab=lista, titulo="Ejemplo Hotel Gevora 2")
         else:
@@ -103,7 +103,7 @@ def admohab():
 @app.route('/admo_hab2')
 def admohab2():
     if 'username' in session:
-        if session['rol'] == 'Superadministrador':
+        if session['rol'] == 'SuperAdministrador':
             lista = db.sql_select_habitaciones()
             return render_template('admo_hab2.html',l_hab=lista, titulo="Ejemplo Hotel Gevora 2")
         else:
@@ -116,7 +116,7 @@ def admohab2():
 @app.route('/ControlHabitacion2/<string:id>', methods=['GET','POST'])
 def controlHabitacion2(id):
     if 'username' in session:
-        if session['rol'] == 'Superadministrador':
+        if session['rol'] == 'SuperAdministrador':
             acc = request.form['acc']
             valor = request.form["pre"]
             if acc == 'Eliminar':
@@ -156,7 +156,7 @@ def controlHabitacion2(id):
 @app.route('/ControlHabitacion', methods=['GET','POST'])
 def controlHabitacion():
     if 'username' in session:
-        if session['rol'] == 'Superadministrador':
+        if session['rol'] == 'SuperAdministrador':
             acc = request.form['acc']
             print(acc)
             estado = request.form["estado"]
@@ -198,7 +198,7 @@ def controlHabitacion():
 @app.route('/historialReserva')
 def historeserva():
     if 'username' in session:
-        if session['rol'] == 'Usuario' or session['rol'] == 'Superadministrador':
+        if session['rol'] == 'Usuario' or session['rol'] == 'SuperAdministrador':
             print(g.user)
             reserva = db.sql_select_all_ReservaU(g.user)
             rate_Form = forms.rateform(request.form)
@@ -214,7 +214,7 @@ def historeserva():
 @app.route('/updateRateReserva' ,methods = ['GET','POST'])
 def updarerate():
     if 'username' in session:
-        if session['rol'] == 'Usuario' or session['rol'] == 'Superadministrador':
+        if session['rol'] == 'Usuario' or session['rol'] == 'SuperAdministrador':
             reserva = db.sql_select_all_ReservaU(g.user)
             rate_Form = forms.rateform(request.form)
             if request.method == 'POST':
@@ -347,7 +347,7 @@ def Harmonia():
 @app.route('/Vista_admin_usuarios2')
 def vistaadminusuarios2():
     if 'username' in session:
-        if session['rol'] == 'Superadministrador':
+        if session['rol'] == 'SuperAdministrador':
             l_user = db.sql_select_usuarios()
             print(l_user)
             userform= forms.admUsers(request.form)
@@ -365,7 +365,7 @@ def vistaadminusuarios2():
 @app.route('/Controluser/<string:id>', methods=['GET', 'POST'])
 def Controluser(id):
     if 'username' in session:
-        if session['rol'] == 'Superadministrador':
+        if session['rol'] == 'SuperAdministrador':
             l_users = db.sql_select_usuarios()
             print(type(l_users))
             userform=forms.admUsers(request.form)
@@ -417,7 +417,7 @@ def Controluser(id):
 @app.route('/Vista_admin_usuarios')
 def vistaadminusuarios():
     if 'username' in session:
-        if session['rol'] == 'Superadministrador':
+        if session['rol'] == 'SuperAdministrador':
             return render_template('Vista_admin_usuarios.html', titulo="Ejemplo Hotel Gevora 2")
         else:
             return redirect(url_for('index'))
