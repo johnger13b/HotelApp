@@ -1,4 +1,4 @@
-from flask import request, Flask,flash, render_template, jsonify, url_for, session, g, redirect
+from flask import request, Flask, flash, render_template, jsonify, url_for, session, g, redirect
 # from flask_login  import UserMixin, login_user, Login_Manager, login_required, logout_user, current_user
 from datetime import datetime
 import dB as db
@@ -250,7 +250,7 @@ def login():
             print(request.form['email'])
             username = request.form['email']
             usuario = db.sql_select_all_usuario(username)
-            print(usuario[3])
+            """  print(usuario[3]) """
             if usuario:
                 result=check_password_hash(usuario[3], request.form['password'])
                 if result != False:
