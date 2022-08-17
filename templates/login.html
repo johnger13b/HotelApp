@@ -1,5 +1,20 @@
 {% extends "base.html" %}
 {% block principal %}
+<div>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'message' %}
+              <div class="alert alert-warning" role="alert">
+            {% else %}
+              <div class="alert alert-{{ category }}" role="alert">
+            {% endif %}
+              {{ message }}
+            </div>
+        {% endfor %}
+      {% endif %}
+  {% endwith %}
+</div>
 
   <!-- <section class="h-200 gradient-form " style="background-color: #eee;" > -->
     <div class="container py-3 h-100">
