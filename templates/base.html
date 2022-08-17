@@ -70,6 +70,18 @@
         .star:hover{
             cursor: pointer;
         }
+        td{
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 12px;
+        }
+        tr{
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 12px;
+        }
         .flex-container{
             margin: 5px;
             padding: 5px;
@@ -77,6 +89,15 @@
         }
         .gradient-navbar{
             background-image: linear-gradient(#053755, #25c3f3);
+        }
+        .gradient-tabla{
+            background-image: linear-gradient(#053755, #83a4d4);
+            font-size: small;
+            color: #ffffff; 
+        }
+        .gradient-bt-del{
+            background-image: linear-gradient(#463e4b, #c31432);
+            font-size: small;
         }
         .gradient-back{
             background-image: linear-gradient(#265a8a, #23d58b);
@@ -94,7 +115,13 @@
           font-size: 3.5rem;
         }
       }
-
+      .nav-bar{
+        position: absolute;
+        width: 280px; 
+        position: fixed; 
+        height: 100%; 
+        width: fit-content 
+      }
       .b-example-divider {
         height: 3rem;
         background-color: rgba(0, 0, 0, .1);
@@ -156,11 +183,31 @@
         <path d="M14 4a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/>
         </symbol>
         </svg>
-        <main  class="d-flex flex-nowrap gap-2">
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark gradient-navbar" style="width: 280px;">
-                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="fs-4">Gevora Hotel</span>
-                </a>
+        
+            <div class="nav-bar flex-column flex-shrink-0 p-3 text-bg-dark gradient-navbar" >
+                <div class="row text-center align-items-center justify-content-center text-align-items-center" >
+                    <a href="/" class="mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <span class="fs-3 ">Gevora Hotel</span>
+                    </a>
+                </div>
+                <div class="dropdown mt-2">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                        <strong>{{g.user}}</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        {% if not 'username' in session: %}
+                            <li><a class="dropdown-item" href="/SignUp">Registrate</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/login">Iniciar Sesion</a></li>
+                        {% endif %}
+                        {% if 'username' in session: %}
+                            <li><a class="dropdown-item" href="/homeProfile">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/cerrar">Cerrar Sesion</a></li>
+                        {% endif %}
+                    </ul>
+                </div>  
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto text-white">
                     <li class="nav-item">
@@ -171,20 +218,20 @@
                     </li>
                     {% if 'username' in session:%}
                         <li>
-                            <a href="Reservas" class="nav-link text-white">
+                            <a href="/Reservas" class="nav-link text-white">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                                 Reserva
                             </a>
                         </li>
                         
                         <li>
-                            <a href="homeProfile" class="nav-link text-white">
+                            <a href="/homeProfile" class="nav-link text-white">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                                 Mi perfil
                             </a>
                         </li>
                         <li>
-                            <a href="historialReserva" class="nav-link text-white">
+                            <a href="/historialReserva" class="nav-link text-white">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                                 Mis Reservas
 
@@ -193,46 +240,28 @@
                         {% if  'username' in session: %}
                         {% if 'Superadministrador' == g.rol: %}
                             <li>
-                                <a href="admo_hab" class="nav-link text-white">
+                                <a href="/admo_hab2" class="nav-link text-white">
                                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
                                     Administrar Habitaciones
                                 </a>
                             </li>
                             <li>
-                                <a href="Vista_admin_usuarios" class="nav-link text-white">
+                                <a href="/Vista_admin_usuarios2" class="nav-link text-white">
                                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
                                     Administrar Usuarios
                                 </a>
                             <li>
                             <li>
-                        {% endif %} {% endif %}
+                    {% endif %} 
                     {% endif %}
-                </ul>
-                <hr>
-                <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                        <strong>{{g.user}}</strong>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        {% if not 'username' in session: %}
-                            <li><a class="dropdown-item" href="SignUp">Sign Up</a></li>
-                            <li><a class="dropdown-item" href="login">Sign In</a></li>
-                        {% endif %}
-                        {% if 'username' in session: %}
-                            <li><a class="dropdown-item" href="homeProfile">Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/cerrar">Sign out</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-            
-                {% block principal %}
+                {% endif %}
+            </ul>
+            <hr>
+        </div>
+        <main  class="d-flex flex-nowrap " style=" margin-left: 16em;  padding: 0em 1em;">
+            {% block principal %}
+            {% endblock %}      
 
-                {% endblock %}
-        
-            <div class="b-example-vr"></div>
         </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/sidebars.js') }}">

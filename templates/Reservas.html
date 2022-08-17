@@ -3,39 +3,51 @@
 {% from "_macro.html" import render_field %}
 {% from "_macro.html" import render_simple_field %}
 {% from "_macro.html" import render_buttonfield %}
-<div  class="container align-items-center justify-content-center align-items-center"> 
- <div class="d-flex mx-auto  mt-5 col-sd-12 col-md-6 col-lg-6 justify-content-center  border rounded  background-color rgb(173, 233, 253)" style="background-color: rgb(221, 243, 251); width: 900px; height: 500px;" >
-  <form class="mx-1 mx-md-4" action="/Quijote" method="POST">    
-   
+<div>
+  <div  class="container align-items-center justify-content-center align-items-center"> 
+    <div class="row ">
+      <div class="mt-4 mx-3 col text-center mb-5 " >
+          <h2 class="text-start" >Reserva de Habitaciones</h2><h6 class="text-start">{{g.user}}</h6>
+          <hr class="dropdown-divider " style="height:3px; width:100%; border-width:0; background-color:rgb(9, 138, 178)">
+      </div>
+  </div>
+  <div class="d-flex mx-auto  mt-4 col-sd-12 col-md-6 col-lg-6 justify-content-center  border rounded " style="background-color: rgb(184, 194, 198); width: 900px; " >
+    <form class="mx-1 mx-md-4" action="/adReserva" method="POST">   
       <div class="d-flex flex-column w-100 justify-content-center">
-        <h1 class="mb-xxl-5 text-center">Reserva tus habitaciones</h1>
-        <div id="search-container" class="d-flex justify-content-center">
-          <label for="Desde">Desde:
-            {{ render_simple_field(form.birddate, class='form-control form-control-sm') }}
-            <!-- <input name="Desde" type="date" class="form-control-sm"> -->
-          </label>
-          <label for="Hasta">Hasta:
-            {{ render_simple_field(form.daterbird, class='form-control form-control-sm') }}
-            <!-- <input name="Hasta" type="date" class="form-control-sm"> -->
-          </label>
-          <label for="Costo">Costo:
-            {{ render_simple_field(form.costo, class='form-control form-control-sm') }}
-            <!-- <input name="Hasta" type="date" class="form-control-sm"> -->
-          </label>
-          <label for="Estado">Estado:
-            {{ render_simple_field(form.estado, class='form-control form-control-sm') }}
-            <!-- <input name="Hasta" type="date" class="form-control-sm"> -->
-          </label>
-        </div>
-        <div class="container d-flex flex-column justify-content-center">
-          {{ render_buttonfield(form.buy, class='btn gradient-navbar btn-md  btn-block text-light fw-bold', placeholder='Comprar') }}
-          <!-- <button type="button" class="btn btn-primary btn-lg btn-block">Buscar</button> -->
+        <div id="search-container" class="mt-4 container justify-content-center">
+          <div class=" justify-content-start ">
+            <div class="row"><label class="fw-bold" for="Desde">Desde:</label></div>
+            <div class="row">  {{ render_simple_field(form.birddate, class='form-control form-control-sm', style=' width:150px;') }}</div>
+              <!-- <input name="Desde" type="date" class="form-control-sm"> -->
+          </div>
+          <div class=" justify-content-start ">          
+            <div class="row"><label class="fw-bold" for="Hasta">Hasta:</label></div>
+            <div class="row"> {{ render_simple_field(form.daterbird, class='form-control form-control-sm', style=' width:150px;') }}</div>
+              <!-- <input name="Hasta" type="date" class="form-control-sm"> -->
+          </div>
+          <div class="justify-content-start  ">
+            <div class="row"><label class="fw-bold" for="Costo">Costo:</label></div>
+            <div class="row">  {{ render_simple_field(form.costo, class='form-control form-control-sm', style=' width:150px;') }}</div>
+              <!-- <input name="Hasta" type="date" class="form-control-sm"> -->
+          </div>
+          {% if not 'Usuario' == g.rol: %}
+          <div class="justify-content-start ">
+            <div class="row"><label class="fw-bold" for="Estado">Estado:</label></div>
+            <div class="row">{{ render_simple_field(form.estado, class='form-control form-control-sm ', style=' width:150px;' ) }}
+              <!-- <input name="Hasta" type="date" class="form-control-sm"> --></div>
+          </div>
+          {% endif %}     
+          <div class=" justify-content-start">
+            <div class="p-2 row">
+              {{ render_buttonfield(form.buy, class='btn gradient-navbar btn-md  btn-block text-light fw-bold', placeholder='Comprar') }}
+              <!-- <button type="button" class="btn btn-primary btn-lg btn-block">Buscar</button> -->
+            </div>
+          </div>
         </div>
       </div>
-    <!-- </div> -->
-  </form>
+      <!-- </div> -->
+    </form>
+  </div>
 </div>
-</div>
-
 {% endblock %}
 

@@ -3,12 +3,11 @@
 <!-- ============================ Divisor izquierdo reserva  =================================== -->
     
     <div class="container py-1 px-5 justify-content-center " >
-        
-        <div class="row text-center">
-            <div class="p-2 col text-center mb-4 gradient-navbar" >
-                <h3 class=" text-light " >Bienvenido {{g.user}}</h3>
+        <div class="row ">
+            <div class="mt-4 mx-3 col text-center mb-5 " >
+                <h2 class="text-start" >Informacion Personal</h2><h6 class="text-start">{{g.user}}</h6>
+                <hr class="dropdown-divider " style="height:3px; width:100%; border-width:0; background-color:rgb(9, 138, 178)">
             </div>
-            <div class="d-flex p-3 justify-content-center"><h4>Informacion Personal</h2></div>
         </div>
         {% from "_macro.html" import render_field %}
         {% from "_macro.html" import render_buttonfield %}

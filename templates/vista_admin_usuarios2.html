@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block principal %}
+{% from "_macro.html" import render_simple_field %}
+{% from "_macro.html" import render_buttonfield %}
+    <div class="container-fluid ">
+        <div class="row ">
+            <div class="mt-4 mx-3 col text-center mb-4 " >
+                <h2 class="text-start" >Administracion de Usuarios</h2><h6 class="text-start">{{g.user}}</h6>
+                <hr class="dropdown-divider " style="height:3px; width:100%; border-width:0; background-color:rgb(9, 138, 178)">
+            </div>
+        </div>
+        <div class="row align-items-center align-middle justify-content-center">
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-2 py-3 px-4  w-100 "> 
+                <div class="d-flex justify-content-center align-items-center text-center ">
+                    <table class="table table-sm align-middle w-100 ">
+                        <thead class=" gradient-tabla" style="text-decoration: #7b8386;">
+                            <tr class="align-middle text-center " style="text-decoration: #7b8386; align-items: center;">
+                                <th>Nombres </th>
+                                <th>Apellidos </th>
+                                <th>Género </th>
+                                <th>Teléfono </th>
+                                <th>Fecha Nacimiento</th>
+                                <th>Email/Usuario</th>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="align-middle">                    
+                            <form action="/Controluser/1" method="post">
+                            <tr class="align-middle text-center align-items-center" > 
+                                <td class="align-middle " style=" align-items: center; ">
+                                    {{ render_simple_field(formini.name, type='text', class='form-control form-control-sm', id='name', style='font-size: 12px; max-width: 110px;') }}
+                                </td>
+                                <td class="align-middle " style=" align-items: center; text-align: center; width:auto; height:20px;">
+                                    {{ render_simple_field(formini.lastname, type='text', class='form-control form-control-sm', id='lastname', style='font-size: 12px; max-width: 110px;') }}
+                                </td>
+                                <td class="centrado align-middle text-center" style="text-align: center; width:auto; height:10px;">
+                                    {{ render_simple_field(formini.sex, type='text', class='form-control form-control-sm', id='sex', style='font-size: 12px; max-width: 110px;') }}
+                                </td>
+                                <td class="align-middle " style=" align-items: center;">
+                                    {{ render_simple_field(formini.tel, type='text', class='form-control form-control-sm', id='tel', style='font-size: 12px; width: 90px;') }}
+                                </td>
+                                <td class="align-middle " style=" align-items: center;">
+                                    {{ render_simple_field(formini.birddate, type='text', class='form-control form-control-sm', style='font-size: 12px; width: 80px;', id='birddate') }}
+                                </td>
+                                <td class="align-middle " style=" align-items: center;">
+                                    {{ render_simple_field(formini.username, type='text', class='form-control form-control-sm', id='username', style='font-size: 12px;') }}
+                                </td>
+                                <td class="align-middle text-center" style="text-align: center;">
+                                    {{ render_simple_field(formini.rol, type='text', class='form-control form-control-sm', id='rol', style='font-size: 12px; max-width: 110px;') }}                       
+                                </td>
+                                <td class="align-middle">
+                                        <input type="submit" class="btn gradient-tabla btn-md text-light fw-bold" name="acc" value="Buscar"  style="font-size: 12px; max-width: 73px;" />
+                                        <input type="submit" class="btn gradient-bt-del btn-md text-light fw-bold" name="acc" value="Nuevo Usuario" style="font-size: 12px; max-width: 140px;" />
+                                </td>
+                            </tr>
+                            </form>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+      <!-- <table id="tabla"> -->
+        <div class="row align-items-center align-middle justify-content-center">
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-2 py-3 px-4  w-100 "> 
+                <div class="d-flex justify-content-center align-items-center text-center ">
+                    <table class="table table-sm align-middle w-100 ">
+                        <thead class=" gradient-tabla" style="text-decoration: #7b8386;">
+                            <tr class="align-middle text-center " style="text-decoration: #7b8386; align-items: center;">
+                                <th>Nombres </th>
+                                <th>Apellidos </th>
+                                <th>Género </th>
+                                <th>Teléfono </th>
+                                <th>Fecha Nacimiento</th>
+                                <th>Email/Usuario</th>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="align-middle">
+                        {% for user in l_users: %}
+
+                            <form action="/Controluser/{{user[0]}}" method="post">
+                            <tr class="align-middle text-center align-items-center" > 
+                                <td class="align-middle " style=" align-items: center; ">
+                                    {{ render_simple_field(form.name, type='text', class='form-control form-control-sm', id='name', style='font-size: 12px; max-width: 110px;', value= user[1]) }}
+                                </td>
+                                <td class="align-middle " style=" align-items: center; text-align: center; width:auto; height:20px;">
+                                    {{ render_simple_field(form.lastname, type='text', class='form-control form-control-sm', id='lastname', style='font-size: 12px; max-width: 110px;', value= user[2] ) }}
+                                </td>
+                                <td class="centrado align-middle text-center" style="text-align: center; width:auto; height:10px;">
+                                    <select class="form-control form-control-sm" name="sex" , style='font-size: 12px;' aria-selected="{{ user[5] }}">
+                                        {% if user[5]=='Hombre' %}
+                                            <option value="Hombre" selected="selected">Hombre</option>
+                                        {% else %}
+                                            <option value="Hombre">Hombre</option>
+                                        {% endif %}
+                                        {% if user[5]=='Mujer' %}
+                                            <option value="Mujer" selected="selected">Mujer</option>
+                                        {% else %}
+                                            <option value="Mujer">Mujer</option>
+                                        {% endif %}
+                                        {% if user[5]=='Otro' %}
+                                            <option value="Otro" selected="selected">Otro</option>
+                                        {% else %}
+                                            <option value="Otro">Otro</option>
+                                        {% endif %}
+                                    </select>
+                                </td>
+                                <td class="align-middle " style=" align-items: center;">
+                                    {{ render_simple_field(form.tel, type='text', class='form-control form-control-sm', id='tel', style='font-size: 12px; width: 90px;', value= user[6] ) }}
+                                </td>
+                                <td class="align-middle " style=" align-items: center;">
+                                    {{ render_simple_field(form.birddate, type='text', class='form-control form-control-sm', style='font-size: 12px; width: 80px;', id='birddate', value= user[4] ) }}
+                                </td>
+                                <td class="align-middle " style=" align-items: center;">
+                                    {{ render_simple_field(form.username, type='text', class='form-control form-control-sm', id='username', style='font-size: 12px;', value= user[0] ) }}
+                                </td>
+                                <td class="align-middle text-center" style="text-align: center;">                        
+                                    <select class="form-control form-control-sm ", name="rol", style='font-size: 12px;' aria-selected="{{ user[7] }}">
+                                        {% if user[7]=='Usuario' %}
+                                            <option value="Usuario" selected="selected">Usuario</option>
+                                        {% else %}
+                                            <option value="Usuario">Usuario</option>
+                                        {% endif %}
+                                        {% if user[7]=='Administrador' %}
+                                            <option value="Administrador" selected="selected">Administrador</option>
+                                        {% else %}
+                                            <option value="Administrador">Administrador</option>
+                                        {% endif %}
+                                        {% if user[7]=='SuperAdministrador' %}
+                                            <option value="SuperAdministrador" selected="selected">SuperAdministrador</option>
+                                        {% else %}
+                                            <option value="SuperAdministrador">SuperAdministrador</option>
+                                        {% endif %}
+                                    </select>
+                                </td>
+                                <td class="align-middle">
+                                        <input type="submit" class="btn gradient-tabla btn-md text-light fw-bold" name="acc" value="Actualizar"  style="font-size: 12px; max-width: 73px;" />
+                                        <input type="submit" class="btn gradient-bt-del btn-md text-light fw-bold" name="acc" value="Eliminar" style="font-size: 12px; max-width: 140px;" />
+                                </td>
+                            </tr>
+                            </form>
+
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

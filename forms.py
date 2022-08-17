@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired
 class Habitacion(FlaskForm):
     idHab = StringField('idHab', validators=[DataRequired()])
     acc = StringField('acc', validators=[DataRequired()])
-    estado = StringField('estado', validators=[DataRequired()])
+    estado = StringField('estado', choices=[('Disponible', 'Disponible'),('Ocupada', 'Ocupada'),('Reservada', 'Reservada'),('Mantenimiento', 'Mantenimiento')], validators=[DataRequired()])
     
 class loginForm(Form):
     username = EmailField('username', validators=[DataRequired()])
@@ -24,6 +24,32 @@ class profileform(Form):
     username = EmailField('Correo:', validators=[DataRequired()])
     contra = PasswordField('Contraseña')
     send = SubmitField('Actualizar')
+
+class admUsers(Form):
+    name = StringField('Nombres:', validators=[DataRequired()])
+    lastname = StringField('Apellidos:', validators=[DataRequired()])
+    sex = SelectField('Sexo:', choices=[('Mujer', 'Mujer'), ('Hombre', 'Hombre'), ('Otro', 'Otro')], validators=[DataRequired()])
+    address = StringField('Direccion:', validators=[DataRequired()])
+    tel = StringField('Telefono:', validators=[DataRequired()])
+    birddate = DateField('Fecha de nacimiento:', validators=[DataRequired()])
+    username = EmailField('Correo:', validators=[DataRequired()])
+    contra = PasswordField('Contraseña')
+    rol = SelectField('Genero:', choices=[('Usuario', 'Usuario'), ('Administrador', 'Administrador'), ('Superadministrador', 'Superadministrador')], validators=[DataRequired()])
+    send = SubmitField('Actualizar')
+    delete = SubmitField('Eliminar')
+
+class admUsersIni(Form):
+    name = StringField('Nombres:')
+    lastname = StringField('Apellidos:')
+    sex = SelectField('Sexo:', choices=[('Mujer', 'Mujer'), ('Hombre', 'Hombre'), ('Otro', 'Otro')])
+    address = StringField('Direccion:')
+    tel = StringField('Telefono:')
+    birddate = DateField('Fecha de nacimiento:')
+    username = EmailField('Correo:')
+    contra = PasswordField('Contraseña')
+    rol = SelectField('Genero:', choices=[('Usuario', 'Usuario'), ('Administrador', 'Administrador'), ('Superadministrador', 'Superadministrador')])
+    send = SubmitField('Actualizar')
+    delete = SubmitField('Eliminar')
 
 class rateform(Form):
     IdReserva = StringField('IdReserva', validators=[DataRequired()])
@@ -44,10 +70,6 @@ class Usuarios(Form):
 class Reservas(Form):
     daterbird = DateField('FechaFinal:', validators=[DataRequired()])
     costo = SelectField('Costo:', choices=[('$150', '$150')], validators=[DataRequired()])
-    estado = SelectField('Estado:', choices=[('Cancelada', 'Cancelada'), ('Activada', 'Activada'), ('Finalizada', 'Finalizada')], validators=[DataRequired()])
+    estado = SelectField('Estado:', choices=[('Activa', 'Activa'), ('Cancelada', 'Cancelada'), ('Finalizada', 'Finalizada')], validators=[DataRequired()])
     birddate = DateField('FechaInicio:', validators=[DataRequired()])
     buy = SubmitField('Comprar')
-
-class button(Form):
-    edit = SubmitField('Eliminar Usuario')
-    delete = SubmitField('Borrar Usuario')

@@ -4,17 +4,18 @@
     {% from "_macro.html" import render_field %}
     {% from "_macro.html" import render_buttonfield %}
     {% from "_macro.html" import render_simple_field %}
-    <div class="container py-1  px-5  " >
-        <div class="row text-center">
-            <div class="p-2 col text-center mb-4 gradient-navbar" >
-                <h3 class=" text-light " >Bienvenido {{g.user}}</h3>
+    <div class="container py-1   " >
+        <div class="row ">
+            <div class="mt-4 mx-3 col text-center mb-5 " >
+                <h2 class="text-start" >Historial de Reservas</h2><h6 class="text-start">{{g.user}}</h6>
+                <hr class="dropdown-divider " style="height:3px; width:100%; border-width:0; background-color:rgb(9, 138, 178)">
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="d-flex col-sm-12 col-md-4 col-lg-4 col-xl-4 w-40 " >
                 <!-- ========================================================================================================================== -->
                 <!-- Fotos que salen y cambian================================================================================================= --> 
-                <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                <!-- <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                         <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                         <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -47,30 +48,30 @@
                     <button class="carousel-control-next m-0" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     </button>
-                </div>
-                <!-- ============================================================================================== -->
-        </div>
+                </div>-->
+            </div> 
         <div class="row  justify-content-center  "  >
             <div class="col-sm-12 col-md-4 col-lg-4 col-xl-2 py-3 px-4 bg-white w-100 ">
-                <h2 class="mb-xxl-5 text-center">Historial de Reservas</h2>
+                <!-- <h2 class="mb-xxl-5 text-center">Historial de Reservas</h2> -->
                 <!-- <table class="table  table-striped " style="background-color: #3590bb;"> -->
-                <table id="ScrollTry" class="table table-striped table-bordered table-sm " style="background-color: #3590bb;" cellspacing="0" width="100%">
+                <table id="ScrollTry" class="table table-striped table-bordered table-sm " style="background-color: #1d698c;" cellspacing="0" width="100%">
                     
                     <thead>
                         <tr>
-                            <th class="th-sm centrado text-light">Fecha Checkin</th>
-                            <th class="th-sm centrado text-light">Fecha CheckOut</th>
+                            <th class="th-sm centrado text-light text-center">Fecha Checkin</th>
+                            <th class="th-sm centrado text-light text-center">Fecha CheckOut</th>
                             <th class="th-sm centrado text-light justify-content-center text-center">Habitacion</th>
-                            <th class="th-sm centrado text-light">Estado</th>
-                            <th class="th-sm centrado text-light">Costo</th>
-                            <th class="th-sm centrado text-light">Calificación</th>
-                            <th class="th-sm centrado text-light">Calificar</th>
+                            <th class="th-sm centrado text-light text-center">Estado</th>
+                            <th class="th-sm centrado text-light text-center">Costo</th>
+                            <th class="th-sm centrado text-light text-center">Comentarios</th>
+                            <th class="th-sm centrado text-light text-center">Calificación</th>
+                            <th class="th-sm centrado text-light text-center">Calificar</th>
                         </tr>
                     </thead>
                     
                     <tbody  >
                         {% for reserv in lreservas %}
-                            <tr style="background-color: #aaebff; align-items: center;" class="th-sm align-items-center">
+                            <tr style="background-color: #c7dde4; align-items: center; font-size: 14px;" class="th-sm align-items-center">
                                 <td class="centrado text-center">{{reserv[3]}}</td>
                                 <td class="centrado text-center">{{reserv[4]}}</td>
                                 <td class="centrado  text-center">{{reserv[2]}}</td>
@@ -81,14 +82,14 @@
                                 {% for cont in range(0, 5) %}
                                     {% set number = reserv[7] | int %}
                                     {% if cont < number %} 
-                                        <img src="{{ url_for('static', filename='images/icons8-star-48.png') }}" alt="" width="10%">
+                                        <img src="{{ url_for('static', filename='images/icons8-star-48.png') }}" alt="" width="8%">
                                     {% else %}
-                                        <img src="{{ url_for('static', filename='images/icons8-star-dark.png') }}" alt="" width="10%">
+                                        <img src="{{ url_for('static', filename='images/icons8-star-dark.png') }}" alt="" width="8%">
                                     {% endif %}
                                 {% endfor%}
                                 </th>
-                                <th class="centrado justify-content-center ">
-                                    <a href="{{reserv[0]}}" data-bs-toggle="modal" data-bs-target="#exampleModal" id="{{ reserv[0] }}"><img src="{{ url_for('static', filename='images/Calificar.png') }}" alt="" width="50%"></a>
+                                <th class="centrado  justify-content-center align-items-center ">
+                                    <a href="{{reserv[0]}}" data-bs-toggle="modal" data-bs-target="#exampleModal" id="{{ reserv[0] }}"><img src="{{ url_for('static', filename='images/Calificar.png') }}" alt="" width="43%"></a>
                                 </th>
                                 <script>
                                     // function tomar_valor() {
