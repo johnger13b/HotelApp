@@ -17,10 +17,10 @@ def index():
 # ===========================================================================
 
 @app.route('/cerrar')
-def cerrar():
-    flash("Sesion Cerrada")
+def cerrar():    
     session.clear()
     g.user = None
+    flash("Sesion Cerrada")
     return redirect(url_for('login'))
 
 # ===========================================================================
