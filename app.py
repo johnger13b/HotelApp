@@ -1,4 +1,4 @@
-from flask import request, Flask, flash, render_template, jsonify, url_for, session, g, redirect
+from flask import request, Flask,flash, render_template, jsonify, url_for, session, g, redirect
 # from flask_login  import UserMixin, login_user, Login_Manager, login_required, logout_user, current_user
 from datetime import datetime
 import dB as db
@@ -250,7 +250,6 @@ def login():
             print(request.form['email'])
             username = request.form['email']
             usuario = db.sql_select_all_usuario(username)
-            """  print(usuario[3]) """
             if usuario:
                 result=check_password_hash(usuario[3], request.form['password'])
                 if result != False:
@@ -373,6 +372,7 @@ def Controluser(id):
             if request.method == 'POST':
                 hash_password = generate_password_hash('userpass123456', method='sha256')
                 acc = request.form['acc']
+                id = request.form['id']
                 username = request.form['username']
                 name = request.form['name']
                 lastname = request.form['lastname']
@@ -381,7 +381,6 @@ def Controluser(id):
                 tel = request.form['tel']
                 rol = request.form['rol']
                 if acc == 'Buscar':
-                    print(username)
                     if (username):
                         query = db.sql_select_usuario_all(username)
                     else:
@@ -407,9 +406,62 @@ def Controluser(id):
     else:
         return redirect(url_for('login'))
 
+#==============================================================================================================================================
 
+@app.route('/admoReserva')
+def admoReserva():
+    if 'username' in session:
+        if session['rol'] == 'SuperAdministrador' or session['rol'] == 'Administrador':
+            reser = db.sql_select_Reserva_all()
+            userform= forms.admReservas(request.form)
+            # userformini= forms.admUsersIni(request.form)
+            print("entro en el vista_admin_usuarios2")
 
+            return render_template('admoReserva.html', l_users = reser, form = userform, titulo='Administacion de Reservas')
+        else:
+            return redirect(url_for('index'))
+    else:
+        return redirect(url_for('login'))
 
+# ===========================================================================
+
+@app.route('/Controladmreserv/<string:id>', methods=['GET', 'POST'])
+def Controladmreserv(id):
+    if 'username' in session:
+        if session['rol'] == 'SuperAdministrador':
+            l_users = db.sql_select_Reserva_all()
+            userform=forms.admReservas(request.form)
+            # userformini= forms.admUsersIni(request.form)
+            if request.method == 'POST':
+                acc = request.form['acc']
+                username = request.form['username']
+                checkin = request.form['checkin']
+                checkout = request.form['checkout']
+                room =  request.form['room']
+                estado = request.form['estado']
+                costo = request.form['costo']
+                if acc == 'Buscar':
+                    print(username)
+                    if (username):
+                        query = db.sql_select_Reserva_byId(username)
+                    else:
+                        query = db.sql_select_Reserva_all()
+
+                    return render_template('admoReserva.html', l_users = query, form = userform, titulo = 'Administacion de Usuarios')
+                    # return redirect(url_for('vistaadminusuarios2', l_users = query, form = userform, formini = userformini, titulo = 'Administacion de Usuarios'))
+                elif acc == 'Actualizar':
+                    db.sql_update_reserva(id, checkin, checkout, room, estado, costo)
+                    query = db.sql_select_Reserva_all()
+                    return render_template('admoReserva.html', l_users = query, form = userform, titulo = 'Administacion de Usuarios')
+                elif acc == 'Nueva Reserva':
+                    db.sql_insert_reservas(checkin, checkout, room, costo, estado, username)
+                    query = db.sql_select_Reserva_all()
+                    return render_template('admoReserva.html', l_users = query, form = userform, titulo = 'Administacion de Usuarios')
+
+        else:
+            return redirect(url_for('index'))
+    else:
+        return redirect(url_for('login'))
 
 # ==============================los siguientes son los viejos===============
 # ===========================================================================

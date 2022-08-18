@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block principal %}
+{% from "_macro.html" import render_simple_field %}
+{% from "_macro.html" import render_buttonfield %}
+    <div class="container-fluid ">
+        <div class="row ">
+            <div class="mt-4 mx-3 col text-center mb-4 " >
+                <h2 class="text-start" >Administracion de Reservas</h2><h6 class="text-start">{{g.user}}</h6>
+                <hr class="dropdown-divider " style="height:3px; width:100%; border-width:0; background-color:rgb(9, 138, 178)">
+            </div>
+        </div>
+        <div class="row align-items-center align-middle justify-content-center">
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-2 py-3 px-4  w-100 "> 
+                <div class="d-flex justify-content-center align-items-center text-center ">
+                    <table class="table table-sm align-middle w-100 ">
+                        <thead class=" gradient-tabla" style="text-decoration: #7b8386;">
+                            <tr class="align-middle text-center " style="text-decoration: #7b8386; align-items: center;">
+                                <th>Email/Usuario</th>
+                                <th>Fecha Checkin</th>
+                                <th>Fecha Checkout</th>
+                                <th>Habitaacion</th>
+                                <th>Estado</th>
+                                <th>Costo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="align-middle">                    
+                            <form action="/Controladmreserv/1" method="post">
+                            <tr class="align-middssle text-center align-items-center" > 
+                                <td class="align-middle " style=" align-items: center; ">
+                                    {{ render_simple_field(form.username, type='text', class='form-control form-control-sm', id='username', style='font-size: 12px; max-width: 140px;') }}
+                                </td>
+                                <td class="align-middle " style=" align-items: center; text-align: center; width:auto; height:20px;">
+                                    {{ render_simple_field(form.checkin, type='date', class='form-control form-control-sm', id='checkin', style='font-size: 12px; max-width: 110px;') }}
+                                </td>
+                                <td class="centrado align-middle text-center" style="text-align: center; width:auto; height:10px;">
+                                    {{ render_simple_field(form.checkout, type='date', class='form-control form-control-sm', id='checkout', style='font-size: 12px; max-width: 110px;') }}
+                                </td>
+                                <td class="align-middle " style=" align-items: center;">
+                                    {{ render_simple_field(form.room, type='text', class='form-control form-control-sm', id='room', style='font-size: 12px; width: 90px;') }}
+                                </td>
+                                <td class="align-middle " style=" align-items: center;">
+                                    {{ render_simple_field(form.estado, type='text', class='form-control form-control-sm', style='font-size: 12px; width: 80px;', id='estado') }}
+                                </td>
+                                <td class="align-middle " style=" align-items: center;">
+                                    {{ render_simple_field(form.costo, type='text', class='form-control form-control-sm', id='costo', style='font-size: 12px;') }}
+                                </td>
+                                <td class="align-middle">
+                                    <input type="submit" class="btn gradient-tabla btn-md text-light fw-bold" name="acc" value="Buscar"  style="font-size: 12px; max-width: 80px;" />
+                                    <input type="submit" class="btn gradient-bt-del btn-md text-light fw-bold" name="acc" value="Nueva Reserva" style="font-size: 12px; max-width: 100px;" />
+                                </td>
+                            </tr>
+                            </form>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+      <!-- <table id="tabla"> -->
+        <div class="row align-items-center align-middle justify-content-center">
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-2 py-3 px-4  w-100 "> 
+                <div class="d-flex justify-content-center align-items-center text-center ">
+                    <table class="table table-sm align-middle w-100 ">
+                        <thead class=" gradient-tabla" style="text-decoration: #7b8386;">
+                            <tr class="align-middle text-center " style="text-decoration: #7b8386; align-items: center;">
+                                <th>Id Reserva</th>
+                                <th>Email/Usuario</th>
+                                <th>Fecha Checkin</th>
+                                <th>Fecha Checkout</th>
+                                <th>Habitaacion</th>
+                                <th>Estado</th>
+                                <th>Costo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="align-middle">
+                        {% for user in l_users: %}
+                            <form action="/Controladmreserv/{{user[0]}}" method="post">
+                            <tr class="align-middle text-center align-items-center" >
+                                <td class="align-middle " style=" align-items: center; ">
+                                    {{ render_simple_field(form.id, type='hidden', class='form-control form-control-sm', id='id', style='font-size: 12px; max-width: 110px;', value= user[0]) }}
+                                    {{ user[0] }}
+                                </td>
+                                <td class="align-middle " style=" align-items: center; ">
+                                    {{ render_simple_field(form.username, type='text', class='form-control form-control-sm', id='username', style='font-size: 12px; max-width: 140px;', value= user[1]) }}
+                                </td>
+                                <td class="align-middle " style=" align-items: center; text-align: center; width:auto; height:20px;">
+                                    {{ render_simple_field(form.checkin, type='date', class='form-control form-control-sm', id='checkin', style='font-size: 12px; max-width: 110px;', value= user[3] ) }}
+                                </td>
+                                <td class="align-middle " style=" align-items: center; text-align: center; width:auto; height:20px;">
+                                    {{ render_simple_field(form.checkout, type='date', class='form-control form-control-sm', id='checkout', style='font-size: 12px; max-width: 110px;', value= user[4] ) }}
+                                </td>
+                                <td class="align-middle " style=" align-items: center; ">
+                                    {{ render_simple_field(form.room, type='text', class='form-control form-control-sm', id='checkout', style='font-size: 12px; max-width: 110px;', value= user[2]) }}
+                                </td>
+                                <td class="centrado align-middle text-center" style="text-align: center; width:auto; height:10px;">
+                                    <select class="form-control form-control-sm" name="estado" , style='font-size: 12px;' aria-selected="{{ user[6] }}">
+                                        {% if user[6]=='Activa' %}
+                                            <option value="Activa" selected="selected">Activa</option>
+                                        {% else %}
+                                            <option value="Activa">Activa</option>
+                                        {% endif %}
+                                        {% if user[6]=='Finalizada' %}
+                                            <option value="Finalizada" selected="selected">Finalizada</option>
+                                        {% else %}
+                                            <option value="Finalizada">Finalizada</option>
+                                        {% endif %}
+                                        {% if user[6]=='Cancelada' %}
+                                            <option value="Cancelada" selected="selected">Cancelada</option>
+                                        {% else %}
+                                            <option value="Cancelada">Cancelada</option>
+                                        {% endif %}
+                                    </select>
+                                </td>
+                                <td class="align-middle " style=" align-items: center;">
+                                    {{ render_simple_field(form.costo, type='text', class='form-control form-control-sm', id='costo', style='font-size: 12px; width: 90px;', value= user[5] ) }}
+                                </td>
+                                <td class="align-middle">
+                                        <input type="submit" class="btn gradient-tabla btn-md text-light fw-bold" name="acc" value="Actualizar"  style="font-size: 12px; max-width: 73px;" />
+                                </td>
+                            </tr>
+                            </form>
+
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -17,6 +17,15 @@ def sql_select_all_ReservaU(username):
     con.close()
     return reservas
 
+def sql_select_Reserva_all():
+    strsq="SELECT * FROM Reservas;"
+    con=sql_connection()
+    cursor_Obj=con.cursor()
+    cursor_Obj.execute(strsq)
+    reservas = cursor_Obj.fetchall()
+    con.close()
+    return reservas
+
 def sql_select_Reserva_byId(id):
     strsq="SELECT * FROM Reservas WHERE IdUsuario ='"+ id +"';"
     con=sql_connection()
@@ -34,12 +43,29 @@ def sql_edit_rate_reserva(id, rate, comentario):
     con.commit()
     con.close()
 
+def sql_update_reserva(id, FechaInicio, FechaFinal, room, estado, costo,): 
+    strsql='UPDATE Reservas SET FechaInicio = ?, FechaFinal = ?, IdHab = ?, costo = ?, Estado = ? WHERE Id = ?;'
+    con=sql_connection()
+    cursor_Obj=con.cursor()
+    cursor_Obj.execute(strsql, ( FechaInicio, FechaFinal,room,costo, estado,id))
+    con.commit()
+    con.close()
+
 def sql_add_reservas(FechaInicio, FechaFinal, costo, Estado,user):
     dreamer = "INSERT INTO Reservas (FechaInicio, FechaFinal, costo, Estado, IdUsuario) VALUES(?, ?, ?, ?, ?);"
     con = sql_connection()
     cursor_Obj = con.cursor()   
     print(FechaInicio)
     cursor_Obj.execute(dreamer,(FechaInicio, FechaFinal, costo, Estado, user))
+    con.commit()
+    con.close()
+
+def sql_insert_reservas(FechaInicio, FechaFinal, room, costo, estado, user):
+    strsql = "INSERT INTO Reservas (FechaInicio, FechaFinal, IdHab, costo, Estado, IdUsuario) VALUES(?, ?, ?, ?, ?, ?);"
+    con = sql_connection()
+    cursor_Obj = con.cursor()   
+    print(FechaInicio)
+    cursor_Obj.execute(strsql,(FechaInicio, FechaFinal, room, costo, estado, user))
     con.commit()
     con.close()
 
@@ -149,34 +175,6 @@ def sql_select_habitacion_estado_reservada():
     habitacion = cursor_Obj.fetchall()
     con.close()
     return habitacion
-
-def sql_select_usuario(id):
-    strsql = "SELECT * FROM Habitaciones WHERE Id = "+id+";"
-    print(strsql)
-    con = sql_connection()
-    cursor_Obj = con.cursor()
-    cursor_Obj.execute(strsql)
-    habitacion = cursor_Obj.fetchall()
-    con.close()
-    return habitacion
-
-def sql_update_usuario(id, Nestado,):
-    strsql = "UPDATE Habitaciones SET Estado = '"+Nestado+"' WHERE Id = '"+id+"';"
-    print(strsql)
-    con = sql_connection()
-    cursor_Obj = con.cursor()
-    cursor_Obj.execute(strsql)
-    con.commit()
-    con.close()
-
-def sql_delete_usuario(id):
-    strsql = "DELETE FROM Habitaciones WHERE Id = "+id+";"
-    print(strsql)
-    con = sql_connection()
-    cursor_Obj = con.cursor()
-    cursor_Obj.execute(strsql)
-    con.commit()
-    con.close()
 
 def sql_delete_reserva(id):
     eros = "DELETE FROM Reservas WHERE Id = "+id+";"

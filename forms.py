@@ -73,3 +73,13 @@ class Reservas(Form):
     estado = SelectField('Estado:', choices=[('Activa', 'Activa'), ('Cancelada', 'Cancelada'), ('Finalizada', 'Finalizada')], validators=[DataRequired()])
     birddate = DateField('FechaInicio:', validators=[DataRequired()])
     buy = SubmitField('Comprar')
+
+class admReservas(Form):
+    id = StringField('Id')
+    username = EmailField('Correo Electronico:', validators=[DataRequired()])
+    checkin = DateField('FechaInicio:', validators=[DataRequired()])
+    checkout = DateField('FechaFinal:', validators=[DataRequired()])
+    room = StringField('Habitacion')
+    estado = SelectField('Estado:', choices=[('Activa', 'Activa'), ('Cancelada', 'Cancelada'), ('Finalizada', 'Finalizada')], validators=[DataRequired()])
+    costo =StringField('Costo', validators=[DataRequired()])
+    buy = SubmitField('Comprar')
